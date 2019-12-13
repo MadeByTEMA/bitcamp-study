@@ -1,14 +1,6 @@
-# 01 - 자바 애플리케이션 프로젝트 만들기
+# 자바 애플리케이션 프로젝트 만들기
 
-## 학습 목표
-
-- `그레이들`을 이용하여 프로젝트 디렉토리를 구성할 수 있다.
-- `그레이들`로 프로젝트를 빌드하고 실행할 수 있다.
-- `아파치 메이븐` 프로젝트의 디렉토리 구조를 이해한다.
-
-## 실습 소스 및 결과
-
-자바 애플리케이션 프로젝트 폴더를 준비한다.
+1) 자바 애플리케이션 프로젝트 폴더를 준비한다.
 
 ```
 src/
@@ -25,32 +17,30 @@ gradlew
 gradlew.bat
 ```
 
-## 실습
-
-### 작업1) 프로젝트 디렉토리를 준비하라.
+2) 프로젝트 디렉토리를 준비한다.
 
 로컬 Git 저장소에 자바 프로젝트 폴더를 생성한다.
 
 ```
-[~/git/eomcs-study]$ mkdir java-project
-[~/git/eomcs-study]$ cd eomcs-java-project
+$ mkdir myproject
+$ cd myproject
 ```
 
 프로젝트 폴더를 자바 애플리케이션 프로젝트로 초기화시킨다.
 ```
-[~/git/eomcs-study/eomcs-java-project]$ gradle init
+$ gradle init
 ```
 
 자바 소스 파일 외의 기타 파일을 보관할 디렉토리 생성
 
 ```
-[~/git/eomcs-study/eomcs-java-project]$ cd src/main
-[~/git/eomcs-study/eomcs-java-project/src/main]$ mkdir resources
-[~/git/eomcs-study/eomcs-java-project/src/main]$ cd ../test
-[~/git/eomcs-study/eomcs-java-project/src/test]$ mkdir resources
+$ cd src/main
+$ mkdir resources
+$ cd ../test
+$ mkdir resources
 ```
 
-### 작업2) '그레이들'의 빌드 스크립트 파일을 편집하라.
+3) 'gradle'의 빌드 스크립트 파일을 편집한다.
 
 build.gradle 파일에 다음 설정을 추가한다.
 
@@ -62,14 +52,14 @@ tasks.withType(JavaCompile) {
 }
 ```
 
-### 작업3) 프로젝트를 빌드하라.
+4) 프로젝트를 빌드한다.
 
 ```
-[~/git/eomcs-study/eomcs-java-project]$ gradle build
+$ gradle build
 ```
 
-### 작업4) 프로젝트를 실행하라.
+5) 프로젝트를 실행한다.
 
 ```
-[~/git/eomcs-study/eomcs-java-project]$ gradle run
+$ gradle run
 ```

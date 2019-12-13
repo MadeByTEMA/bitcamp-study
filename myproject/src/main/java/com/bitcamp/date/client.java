@@ -4,44 +4,71 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class client {
+  static final int size = 100_000;
+  static ClientDTO[] clients = new ClientDTO[size];
+  static int count = 0;
+
   public static void main(String[] args) {
+
+    inputBoards();
+
+    System.out.println();
+
+    printBoards();
+
+  }
+
+  static void inputBoards() {
     Scanner keyboard = new Scanner(System.in);
-    
-    System.out.println("ID를 입력해주세요.");
-    String id = keyboard.nextLine();
-    
-    System.out.println("PWD를 입력해주세요.");
-    String pwd = keyboard.nextLine();
-    
-    System.out.println("이름을 입력해주세요.");
-    String name = keyboard.nextLine();
-    
-    System.out.println("생년월일을 입력해주세요.");
-    Date signUpDate = Date.valueOf(keyboard.nextLine());
-    
-    System.out.println("성별을 입력해주세요.");
-    String sex = keyboard.nextLine();
-    
-    System.out.println("전화번호를 입력해주세요.");
-    String tel = keyboard.nextLine();
-    
-    System.out.println("주소를 입력해주세요.");
-    String address = keyboard.nextLine();
-    
-    int vip = 0;
-    
-    java.util.Date today = new java.util.Date();
-    
+    String response;
+
+    for (int i = 0; i < size; i++) {
+      ClientDTO c = new ClientDTO();
+      int vip = 0;
+
+      System.out.println("ID를 입력해주세요.");
+      c.id = keyboard.nextLine();
+
+      System.out.println("PWD를 입력해주세요.");
+      c.pwd = keyboard.nextLine();
+
+      System.out.println("이름을 입력해주세요.");
+      c.name = keyboard.nextLine();
+
+      System.out.println("생년월일을 입력해주세요.");
+      c.birthday = Date.valueOf(keyboard.nextLine());
+
+      System.out.println("성별을 입력해주세요.");
+      c.sex = keyboard.nextLine();
+
+      System.out.println("전화번호를 입력해주세요.");
+      c.tel = keyboard.nextLine();
+
+      System.out.println("주소를 입력해주세요.");
+      c.address = keyboard.nextLine();
+
+      c.vip = 0;
+
+      java.util.Date signUpDate = new java.util.Date();
+
+      clients[i] = c;
+
+      count++;
+
+      System.out.println();
+
+      System.out.print("계속 입력하시겠습니까 ? Y/N ");
+      response = keyboard.nextLine();
+      if (!response.equalsIgnoreCase("y")) {
+        break;
+      }
+    }
     keyboard.close();
-    
-    System.out.printf("ID : %s\n", id);
-    System.out.printf("PWD : %s\n", pwd);
-    System.out.printf("이름 : %s\n", name);
-    System.out.printf("생년월일 : %s\n", signUpDate);
-    System.out.printf("성별 : %s\n", sex);
-    System.out.printf("전화번호 : %s\n", tel);
-    System.out.printf("거주지 : %s\n", address);
-    System.out.printf("가입일 : %1$tY-%1$tm-%1$td\n", today);
-    System.out.printf("등급 : %s\n", vip);
+  }
+  static void printBoards() {
+    for (int i = 0; i < count; i++) {
+      ClientDTO c = clients[i];
+      System.out.printf("%d, %s , %s , %s, %s , %s, %s\n", c.clientCode, c.id, c.name, c.birthday, c.sex, c.tel, c.signUpDate);
+    }
   }
 }
