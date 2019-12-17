@@ -11,8 +11,7 @@ import java.util.Scanner;
 //    메서드
 // 4) 메서드 사이에 공유하는 변수는 클래스 변수로 선언한다.
 //    스태틱 변수
-// 5) 복합 데이터를 저장할 메모리를 설계한다.
-//    클래스
+// 5) 
 public class App3 {
 
   static final int size = 5734;

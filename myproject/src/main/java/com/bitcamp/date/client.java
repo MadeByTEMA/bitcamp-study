@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class client {
   static final int size = 100_000;
-  static ClientDTO[] clients = new ClientDTO[size];
+  static clientDTO[] clients = new clientDTO[size];
   static int count = 0;
 
   public static void main(String[] args) {
@@ -23,8 +23,7 @@ public class client {
     String response;
 
     for (int i = 0; i < size; i++) {
-      ClientDTO c = new ClientDTO();
-      int vip = 0;
+      clientDTO c = new clientDTO();
 
       System.out.println("ID를 입력해주세요.");
       c.id = keyboard.nextLine();
@@ -67,7 +66,7 @@ public class client {
   }
   static void printBoards() {
     for (int i = 0; i < count; i++) {
-      ClientDTO c = clients[i];
+      clientDTO c = clients[i];
       System.out.printf("%d, %s , %s , %s, %s , %s, %s\n", c.clientCode, c.id, c.name, c.birthday, c.sex, c.tel, c.signUpDate);
     }
   }

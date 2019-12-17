@@ -2,7 +2,7 @@ package com.bitcamp.date;
 
 import java.sql.Date;
 
-public class ClientDTO {
+public class clientDTO {
   String id;
   String pwd;
   String name;

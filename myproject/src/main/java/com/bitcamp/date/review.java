@@ -3,8 +3,14 @@ package com.bitcamp.date;
 import java.util.Scanner;
 
 public class review {
+  static final int size = 100_000;
+  static reviewDTO[] reviews = new reviewDTO[size];
+
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
+    
+    for(i = 0; i < size; i++) {
+    
     
     System.out.println("가게명을 입력해주세요.");
     String storeName = keyboard.nextLine();
@@ -22,7 +28,8 @@ public class review {
     String address = keyboard.nextLine();
     
     int category = 0;
-    
+
+    }
     keyboard.close();
     
     System.out.printf("가게명 : %s\n", storeName);

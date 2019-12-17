@@ -6,22 +6,19 @@ public class Test01 {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
     
-    int min = 0, max= 0;
+    int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
 
     System.out.println("입력 ? ");
 
     for (int i = 0; i < 5; i++) {
     int no = keyboard.nextInt();
 
-    if (i == 0) {
-      min = no;
-      max = no;
-      } else{
         if(no < min) {
           min = no;
       } else if (no > max) {
         max = no;
       }
+      
     }
     System.out.printf("최소값 : ", min);
     System.out.printf("최대값 : ", max);
