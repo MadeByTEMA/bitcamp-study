@@ -1,0 +1,35 @@
+package com.eomcs.basic.tesk1216;
+
+import java.util.Scanner;
+
+public class Test02 {
+  
+  static final int size = 5;
+  
+  public static void main(String[] args) {
+    Scanner keyboard = new Scanner(System.in);
+    
+    Number[] numbers = new Number[size];
+    
+    System.out.println("입력 ? ");
+    numbers[0] = keyboard.nextInt();
+    numbers[1] = keyboard.nextInt();
+    numbers[2] = keyboard.nextInt();
+    numbers[3] = keyboard.nextInt();
+    numbers[4] = keyboard.nextInt();
+    
+    for(int i = 0; i < size; i++) {
+      for(int j = 0; j < i; j++) {
+        if((int)numbers[i] < (int)numbers[j]) {
+          int i2 = 0;
+           i2 = (int)numbers[i];
+           numbers[i] = numbers[j];
+           numbers[j] = i2;
+        }
+      }
+    }
+    
+    System.out.println("최소값 : "+numbers[0]);
+    System.out.println("최대값 : "+numbers[4]);
+  }
+}
