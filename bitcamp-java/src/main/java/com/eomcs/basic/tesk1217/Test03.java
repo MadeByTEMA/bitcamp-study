@@ -4,25 +4,30 @@ import java.util.Scanner;
 public class Test03 {
   public static void main(String[] args) {
     Scanner keyScan = new Scanner(System.in);
-    System.out.println("밑변 길이 ?");
-    int len = keyScan.nextInt();
+    System.out.print("밑변 길이? ");
+    int width = keyScan.nextInt();
     
+    if (width % 2 == 0)
+      width--;
+    
+    int spaceSize = width >> 1;
     int line = 0;
-    while (line < len / 2 + 1 ) {
-      int j = 0;
-      int k = line;
-      String blink = "";
-      while (k < len / 2) {
-        blink += " ";
-        k++;
+    while (line++ < width) {
+      if(line % 2 == 0) {
+        continue;
       }
-      String stars = "*";
-      while (j < line) {
-        stars += "**";
-        j++;
+      
+      int count = 0;
+      while (count++ < spaceSize) {
+        System.out.print(" ");
       }
-      System.out.println(blink+stars);
-      line++;
+      spaceSize--;
+      
+      int x = 0;
+      while (x++ < line) {
+        System.out.print("*");
+      }
+      System.out.println();
     }
   }
 }
