@@ -8,7 +8,7 @@ public class App {
   public static void main(String[] args) {
 
     Scanner keyboard = new Scanner(System.in);
-    
+
     class Lesson {
       int no;
       String title;
@@ -18,12 +18,7 @@ public class App {
       int totalHours;
       int dayHours;
     }
-    
-    final int LESSON_SIZE = 100;
-    Lesson[] lessons = new Lesson[LESSON_SIZE];
-    int lessonCount = 0;
-    
-    
+
     class Member {
       int no;
       String name;
@@ -34,31 +29,35 @@ public class App {
       Date registeredDate;
     }
 
-    final int MEMBER_SIZE = 100;
-    Member[] members = new Member[MEMBER_SIZE];
-    int memberCount = 0;
-    
     class Board {
       int no;
       String title;
       Date date;
       int viewCount;
     }
-    
+
+    final int LESSON_SIZE = 100;
+    final int MEMBER_SIZE = 100;
     final int BOARD_SIZE = 100;
+
+    Lesson[] lessons = new Lesson[LESSON_SIZE];
+    Member[] members = new Member[MEMBER_SIZE];
     Board[] boards = new Board[BOARD_SIZE];
+
+    int lessonCount = 0;
+    int memberCount = 0;
     int boardCount = 0;
-    
+
     String command;
-    
+
     do {
       System.out.print("\n명령> ");
       command = keyboard.nextLine();
-      
+
       switch (command) {
         case "/lesson/add":
           Lesson lesson = new Lesson();
-          
+
           System.out.print("번호? ");
           lesson.no = keyboard.nextInt();
 
@@ -82,10 +81,10 @@ public class App {
           System.out.print("일수업시간? ");
           lesson.dayHours = keyboard.nextInt();
           keyboard.nextLine(); 
-          
+
           lessons[lessonCount++] = lesson;
           System.out.println("저장하였습니다.");
-          
+
           break;
         case "/lesson/list":
           for (int i = 0; i < lessonCount; i++) {
@@ -117,10 +116,10 @@ public class App {
           member.tel = keyboard.nextLine();
 
           member.registeredDate = new Date(System.currentTimeMillis());
-          
+
           members[memberCount++] = member;
           System.out.println("저장하였습니다.");
-          
+
           break;
         case "/member/list":
           for (int i = 0; i < memberCount; i++) {
@@ -128,6 +127,7 @@ public class App {
             System.out.printf("%d, %s, %s, %s, %s\n", 
                 m.no, m.name, m.email, m.tel, m.registeredDate);
           }
+
           break;
         case "/board/add":
           Board board = new Board();
@@ -142,8 +142,11 @@ public class App {
           board.date = new Date(System.currentTimeMillis());
           board.viewCount = 0;
           
+          // 게시물 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
           boards[boardCount++] = board;
+          
           System.out.println("저장하였습니다.");
+          
           break;
         case "/board/list":
           for (int i = 0; i < boardCount; i++) {
@@ -151,17 +154,18 @@ public class App {
             System.out.printf("%d, %s, %s, %d\n", 
                 b.no, b.title, b.date, b.viewCount);
           }
+
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
           }
       }
-      
+
     } while (!command.equalsIgnoreCase("quit"));
-    
+
     System.out.println("안녕!");
-    
+
     keyboard.close();
   }
 }
