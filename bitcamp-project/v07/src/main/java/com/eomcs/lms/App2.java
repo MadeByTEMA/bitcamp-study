@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class App2 { 
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
-    
-    class MemberInformation {
+
+    class Member {
       int no;
       String name;
       String email;
@@ -16,46 +16,44 @@ public class App2 {
       String tel;
       Date registeredDate;
     }
-    
+
     final int SIZE = 100;
-    
-    MemberInformation[] members = new MemberInformation[SIZE];
-    
-    for (int i = 0; i < SIZE; i++) {
-      members[i] = new MemberInformation();
-    }
-    
-    
-    
+
+    // Member 인스턴스의 주소를 저장할 레퍼런스 배열을 준비한다.
+    Member[] members = new Member[SIZE];
+
     int count = 0;
-    
+
     for (int i = 0; i < SIZE; i++) {
-      MemberInformation m = members[i];
       
+      count++;
+
+      // 회원정보를 저장할 메모리를 Member 설계도에 따라 만든다.
+      Member member = new Member();
+
       System.out.print("번호? ");
-      m.no = keyboard.nextInt();
+      member.no = keyboard.nextInt();
       keyboard.nextLine(); // 줄바꿈 기호 제거용
 
       System.out.print("이름? ");
-      m.name = keyboard.nextLine();
+      member.name = keyboard.nextLine();
 
       System.out.print("이메일? ");
-      m.email = keyboard.nextLine();
+      member.email = keyboard.nextLine();
 
       System.out.print("암호? ");
-      m.password = keyboard.nextLine();
+      member.password = keyboard.nextLine();
 
       System.out.print("사진? ");
-      m.photo = keyboard.nextLine();
+      member.photo = keyboard.nextLine();
 
       System.out.print("전화? ");
-      m.tel = keyboard.nextLine();
+      member.tel = keyboard.nextLine();
 
-      m.registeredDate = new Date(System.currentTimeMillis());
-      
-      count++;
-      
-      members[i] = m;
+      member.registeredDate = new Date(System.currentTimeMillis());
+
+      // 회원 정보가 담겨있는 인스턴스의 주소를 레퍼런스 배열에 보관한다.
+      members[i] = member;
       
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String response = keyboard.nextLine();
@@ -67,9 +65,10 @@ public class App2 {
     System.out.println();
 
     for (int i = 0; i < count; i++) {
-      MemberInformation m = members[i];
+      Member member = members[i];
       System.out.printf("%d, %s, %s, %s, %s\n", 
-          m.no, m.name, m.email, m.tel, m.registeredDate);
+          member.no, member.name, member.email, 
+          member.tel, member.registeredDate);
     }
   }
 }

@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 public class App {
+
   public static void main(String[] args) {
     System.out.println("번호: 1");
     System.out.println("수업명: 자바 프로젝트 실습");

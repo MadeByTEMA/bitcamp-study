@@ -32,7 +32,7 @@ gradlew.bat
 로컬 Git 저장소에 자바 프로젝트 폴더를 생성한다.
 
 ```
-[~/git/eomcs-study]$ mkdir java-project
+[~/git/eomcs-study]$ mkdir eomcs-java-project
 [~/git/eomcs-study]$ cd eomcs-java-project
 ```
 

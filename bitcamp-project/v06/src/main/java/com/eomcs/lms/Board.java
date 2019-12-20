@@ -8,5 +8,4 @@ public class Board {
   String title;
   Date date;
   int viewCount;
-  
 }
