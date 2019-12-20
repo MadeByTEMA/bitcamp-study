@@ -21,13 +21,17 @@ public class App3 {
     // Board 인스턴스의 주소를 담을 레퍼런스 배열을 준비한다.
     Board[] boards = new Board[SIZE];
     
+    // Board 인스턴스를 생성하여 레퍼런스 배열에 저장한다.
+    for (int i = 0; i < SIZE; i++) {
+      boards[i] = new Board();
+    }
+    
     String response;
     int count = 0;
     
     for (int i = 0; i < 100; i++) {
       
-      // 사용자 입력한 게시물 데이터를 저장할 메모리를 Board 설계도에 따라 만든다.
-      Board board = new Board();
+      Board board = boards[i];
       
       System.out.print("번호? ");
       board.no = keyboard.nextInt();
@@ -39,10 +43,9 @@ public class App3 {
       board.date = new Date(System.currentTimeMillis());
       board.viewCount = 0;
       
-      // 게시물 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
-      boards[i] = board;
-      
       count++;
+      
+      boards[i] = board;
       
       System.out.println();
 
