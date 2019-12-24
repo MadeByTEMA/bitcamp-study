@@ -1,53 +1,34 @@
 package com.eomcs.lms;
 
-import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.handler.*;
+
 
 public class App {
-
-  static class Lesson {
-    int no;
-    String title;
-    String description;
-    Date startDate;
-    Date endDate;
-    int totalHours;
-    int dayHours;
-  }
-
-  static class Member {
-    int no;
-    String name;
-    String email;
-    String password;
-    String photo;
-    String tel;
-    Date registeredDate;
-  }
-
-  static class Board {
-    int no;
-    String title;
-    Date date;
-    int viewCount;
-  }
-
-  static final int LESSON_SIZE = 100;
-  static final int MEMBER_SIZE = 100;
-  static final int BOARD_SIZE = 100;
-
-  static Lesson[] lessons = new Lesson[LESSON_SIZE];
-  static Member[] members = new Member[MEMBER_SIZE];
-  static Board[] boards = new Board[BOARD_SIZE];
-
-  static int lessonCount = 0;
-  static int memberCount = 0;
-  static int boardCount = 0;
 
   static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
 
+    // Handler의 메서드를 사용하기 전에
+    // 그 메서드가 작업할 때 사용할 키보드 객체를 설정해줘야한다.
+    LessonHandler.keyboard = keyboard;
+    BoardHandler.keyboard = keyboard;
+    MemberHandler.keyboard = keyboard;
+    
+    // BoardHandler의 메서드가 사용할 메모리만 게시판 마다 따로 생성한다.
+    BoardHandler boardHandler1 = new BoardHandler();
+    BoardHandler boardHandler2 = new BoardHandler();
+    BoardHandler boardHandler3 = new BoardHandler();
+    BoardHandler boardHandler4 = new BoardHandler();
+    BoardHandler boardHandler5 = new BoardHandler();
+    BoardHandler boardHandler6 = new BoardHandler();
+    
+    LessonHandler lessonHandler = new LessonHandler();
+    MemberHandler memberHandler = new MemberHandler(); 
+    
+    
+    
     String command;
 
     do {
@@ -56,36 +37,94 @@ public class App {
 
       switch (command) {
         case "/lesson/add":
-          // 분리된 코드(메서드)를 실행(호출)시킨다.
-          // => 보통 "메서드를 호출한다"라고 표현한다.
-          addLesson();
-
+          // 다른 클래스로 분리한 메서드를 호출할 때는
+          // 클래스를 이름으로 지정해야 한다.
+          LessonHandler.addLesson(lessonHandler);
           break;
         case "/lesson/list":
-
-          listLesson();
-
+          LessonHandler.listLesson(lessonHandler);
           break;
+          
         case "/member/add":
-
-          addMember();
-
+          MemberHandler.addMember(memberHandler);
           break;
+          
         case "/member/list":
-
-          listMember();
-
+          MemberHandler.listMember(memberHandler);
           break;
+          
         case "/board/add":
-
-          addBoard();
-
+          BoardHandler.addBoard(boardHandler1);
           break;
+          
         case "/board/list":
-
-          listBoard();
-
+          BoardHandler.listBoard(boardHandler1);
           break;
+          
+        case "/board/detail":
+          BoardHandler.detailBoard(boardHandler1);
+          break;
+          
+        case "/board2/add":
+          BoardHandler.addBoard(boardHandler2);
+          break;
+          
+        case "/board2/list":
+          BoardHandler.listBoard(boardHandler2);
+          break;
+          
+        case "/board2/detail":
+          BoardHandler.detailBoard(boardHandler3);
+          break;
+          
+        case "/board3/add":
+          BoardHandler.addBoard(boardHandler3);
+          break;
+          
+        case "/board3/list":
+          BoardHandler.listBoard(boardHandler3);
+          break;
+          
+        case "/board3/detail":
+          BoardHandler.detailBoard(boardHandler3);
+          break;
+          
+        case "/board4/add":
+          BoardHandler.addBoard(boardHandler4);
+          break;
+          
+        case "/board4/list":
+          BoardHandler.listBoard(boardHandler4);
+          break;
+          
+        case "/board4/detail":
+          BoardHandler.detailBoard(boardHandler4);
+          break;
+          
+        case "/board5/add":
+          BoardHandler.addBoard(boardHandler5);
+          break;
+          
+        case "/board5/list":
+          BoardHandler.listBoard(boardHandler5);
+          break;
+          
+        case "/board5/detail":
+          BoardHandler.detailBoard(boardHandler5);
+          break;
+          
+        case "/board6/add":
+          BoardHandler.addBoard(boardHandler6);
+          break;
+          
+        case "/board6/list":
+          BoardHandler.listBoard(boardHandler6);
+          break;
+          
+        case "/board6/detail":
+          BoardHandler.detailBoard(boardHandler6);
+          break;
+          
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -97,107 +136,6 @@ public class App {
     System.out.println("안녕!");
 
     keyboard.close();
-  }
-
-  static void addLesson() {
-    Lesson lesson = new Lesson();
-
-    System.out.print("번호? ");
-    lesson.no = keyboard.nextInt();
-
-    keyboard.nextLine(); 
-
-    System.out.print("수업명? ");
-    lesson.title = keyboard.nextLine();
-
-    System.out.print("설명? ");
-    lesson.description = keyboard.nextLine();
-
-    System.out.print("시작일? ");
-    lesson.startDate = Date.valueOf(keyboard.next());
-
-    System.out.print("종료일? ");
-    lesson.endDate = Date.valueOf(keyboard.next());
-
-    System.out.print("총수업시간? ");
-    lesson.totalHours = keyboard.nextInt();
-
-    System.out.print("일수업시간? ");
-    lesson.dayHours = keyboard.nextInt();
-    keyboard.nextLine(); 
-
-    lessons[lessonCount++] = lesson;
-    System.out.println("저장하였습니다.");
-  }
-  static void listLesson() {
-    for (int i = 0; i < lessonCount; i++) {
-      Lesson l = lessons[i];
-      System.out.printf("%d, %s, %s ~ %s, %d\n",
-          l.no, l.title, l.startDate, l.endDate, l.totalHours);
-    }
-  }
-
-  static void addMember() {
-    Member member = new Member();
-
-    System.out.print("번호? ");
-    member.no = keyboard.nextInt();
-    keyboard.nextLine(); // 줄바꿈 기호 제거용
-
-    System.out.print("이름? ");
-    member.name = keyboard.nextLine();
-
-    System.out.print("이메일? ");
-    member.email = keyboard.nextLine();
-
-    System.out.print("암호? ");
-    member.password = keyboard.nextLine();
-
-    System.out.print("사진? ");
-    member.photo = keyboard.nextLine();
-
-    System.out.print("전화? ");
-    member.tel = keyboard.nextLine();
-
-    member.registeredDate = new Date(System.currentTimeMillis());
-
-    members[memberCount++] = member;
-    System.out.println("저장하였습니다.");
-  }
-
-  static void listMember() {
-    for (int i = 0; i < memberCount; i++) {
-      Member m = members[i];
-      System.out.printf("%d, %s, %s, %s, %s\n", 
-          m.no, m.name, m.email, m.tel, m.registeredDate);
-    }
-  }
-
-  static void addBoard() {
-    Board board = new Board();
-
-    System.out.print("번호? ");
-    board.no = keyboard.nextInt();
-    keyboard.nextLine(); // 줄바꿈 기호 제거용
-
-    System.out.print("내용? ");
-    board.title = keyboard.nextLine();
-
-    board.date = new Date(System.currentTimeMillis());
-    board.viewCount = 0;
-
-    // 게시물 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
-    boards[boardCount++] = board;
-
-    System.out.println("저장하였습니다.");
-  }
-
-  static void listBoard() {
-    for (int i = 0; i < boardCount; i++) {
-      Board b = boards[i];
-      System.out.printf("%d, %s, %s, %d\n", 
-          b.no, b.title, b.date, b.viewCount);
-    }
   }
 }
 
