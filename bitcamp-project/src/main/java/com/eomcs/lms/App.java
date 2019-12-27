@@ -39,90 +39,90 @@ public class App {
         case "/lesson/add":
           // 다른 클래스로 분리한 메서드를 호출할 때는
           // 클래스를 이름으로 지정해야 한다.
-          LessonHandler.addLesson(lessonHandler);
+          lessonHandler.addLesson();
           break;
         case "/lesson/list":
-          LessonHandler.listLesson(lessonHandler);
+          lessonHandler.listLesson();
           break;
           
         case "/member/add":
-          MemberHandler.addMember(memberHandler);
+          memberHandler.addMember();
           break;
           
         case "/member/list":
-          MemberHandler.listMember(memberHandler);
+          memberHandler.listMember();
           break;
           
         case "/board/add":
-          BoardHandler.addBoard(boardHandler1);
+          boardHandler1.addBoard();
           break;
           
         case "/board/list":
-          BoardHandler.listBoard(boardHandler1);
+          boardHandler1.listBoard();
           break;
           
         case "/board/detail":
-          BoardHandler.detailBoard(boardHandler1);
+          boardHandler1.detailBoard();
           break;
           
         case "/board2/add":
-          BoardHandler.addBoard(boardHandler2);
+          boardHandler2.addBoard();
           break;
           
         case "/board2/list":
-          BoardHandler.listBoard(boardHandler2);
+          boardHandler2.listBoard();
           break;
           
         case "/board2/detail":
-          BoardHandler.detailBoard(boardHandler3);
+          boardHandler2.detailBoard();
           break;
           
         case "/board3/add":
-          BoardHandler.addBoard(boardHandler3);
+          boardHandler3.addBoard();
           break;
           
         case "/board3/list":
-          BoardHandler.listBoard(boardHandler3);
+          boardHandler3.listBoard();
           break;
           
         case "/board3/detail":
-          BoardHandler.detailBoard(boardHandler3);
+          boardHandler3.detailBoard();
           break;
           
         case "/board4/add":
-          BoardHandler.addBoard(boardHandler4);
+          boardHandler4.addBoard();
           break;
           
         case "/board4/list":
-          BoardHandler.listBoard(boardHandler4);
+          boardHandler4.listBoard();
           break;
           
         case "/board4/detail":
-          BoardHandler.detailBoard(boardHandler4);
+          boardHandler4.detailBoard();
           break;
           
         case "/board5/add":
-          BoardHandler.addBoard(boardHandler5);
+          boardHandler5.addBoard();
           break;
           
         case "/board5/list":
-          BoardHandler.listBoard(boardHandler5);
+          boardHandler5.listBoard();
           break;
           
         case "/board5/detail":
-          BoardHandler.detailBoard(boardHandler5);
+          boardHandler5.detailBoard();
           break;
           
         case "/board6/add":
-          BoardHandler.addBoard(boardHandler6);
+          boardHandler6.addBoard();
           break;
           
         case "/board6/list":
-          BoardHandler.listBoard(boardHandler6);
+          boardHandler6.listBoard();
           break;
           
         case "/board6/detail":
-          BoardHandler.detailBoard(boardHandler6);
+          boardHandler6.detailBoard();
           break;
           
         default:

@@ -25,15 +25,15 @@ public class BoardHandler {
   // => 인스턴스를 사용하려면 파라미터를 통해 호출할 때 외부에서 받아야 한다.
   
 
-  public static void listBoard(BoardHandler boardHandler) {
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      Board b = boardHandler.boards[i];
+  public void listBoard() {
+    for (int i = 0; i < this.boardCount; i++) {
+      Board b = this.boards[i];
       System.out.printf("%d, %s, %s, %d\n", 
           b.no, b.title, b.date, b.viewCount);
     }
   }
   
-  public static void addBoard(BoardHandler boardHandler) {
+  public void addBoard() {
     Board board = new Board();
 
     System.out.print("번호? ");
@@ -47,20 +47,20 @@ public class BoardHandler {
     board.viewCount = 0;
 
     // 게시물 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
-    boardHandler.boards[boardHandler.boardCount++] = board;
+    this.boards[this.boardCount++] = board;
 
     System.out.println("저장하였습니다.");
   }
 
-  public static void detailBoard(BoardHandler boardHandler) {
+  public void detailBoard() {
     System.out.println("게시물 번호? ");
     int no = keyboard.nextInt();
     keyboard.nextLine();
 
     Board board = null;
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      if (boardHandler.boards[i].no == no) {
-        board = boardHandler.boards[i];
+    for (int i = 0; i < this.boardCount; i++) {
+      if (this.boards[i].no == no) {
+        board = this.boards[i];
         break;
       }
     }

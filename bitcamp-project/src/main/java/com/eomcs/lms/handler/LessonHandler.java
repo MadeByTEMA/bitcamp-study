@@ -14,7 +14,7 @@ public class LessonHandler {
   public static Scanner keyboard;
   static final int LESSON_SIZE = 100;
 
-  public static void addLesson(LessonHandler lessonHandler) {
+  public void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
@@ -41,13 +41,13 @@ public class LessonHandler {
     lesson.dayHours = keyboard.nextInt();
     keyboard.nextLine(); 
 
-    lessonHandler.lessons[lessonHandler.lessonCount++] = lesson;
+    this.lessons[this.lessonCount++] = lesson;
     System.out.println("저장하였습니다.");
   }
 
-  public static void listLesson(LessonHandler lessonHandler) {
-    for (int i = 0; i < lessonHandler.lessonCount; i++) {
-      Lesson l = lessonHandler.lessons[i];
+  public void listLesson() {
+    for (int i = 0; i < this.lessonCount; i++) {
+      Lesson l = this.lessons[i];
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.no, l.title, l.startDate, l.endDate, l.totalHours);
     }
