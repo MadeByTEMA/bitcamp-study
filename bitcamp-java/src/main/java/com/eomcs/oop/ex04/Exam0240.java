@@ -18,13 +18,16 @@ public class Exam0240 {
         
         // 실무에서는 java.util.Date 대신 이 클래스의 자식 클래스인
         // java.sql.Date을 쓰기도 한다.
-        // 이 클래스는 날짜 데이터를 문자열로 다룰 때 yyyy-MM-dd 형식으로 다룬다.
+        // 이 클래스는 날짜 데이터를 문자열로 다룰 때 
+        // yyyy-MM-dd 형식으로 다루기 때문에 편하다.
         
         // 스태틱 메서드 활용
         long currMillis = System.currentTimeMillis();
+        System.out.println(currMillis);
         
         // 생성자 활용
         java.sql.Date today = new java.sql.Date(currMillis);
+        System.out.println(today);
         
         // 인스턴스 메서드 활용 
         String str = today.toString();

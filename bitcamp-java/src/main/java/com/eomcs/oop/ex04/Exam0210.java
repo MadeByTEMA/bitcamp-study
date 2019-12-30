@@ -36,7 +36,7 @@ public class Exam0210 {
         byte[] bytes = s3.getBytes(); 
         for (int i = 0; i < bytes.length; i++)
             System.out.printf("%x,", bytes[i]);
-        System.out.println();
+          System.out.println();
         
         // 다른 인스턴스 메서드를 사용하여 바이트 배열을 추출해보자.
         bytes = s3.getBytes("EUC-KR");
@@ -53,7 +53,7 @@ public class Exam0210 {
         System.out.println(s4);
         
         // => 구분자와 문자열들을 파라미터로 받아서 새 문자열을 만든다.
-        String s5 = String.join(":", "홍길동", "임꺽정", "유관순");
+        String s5 = String.join("*", "홍길동", "임꺽정", "유관순");
         System.out.println(s5);
         
         // => primitive 값을 문자열로 만든다.
