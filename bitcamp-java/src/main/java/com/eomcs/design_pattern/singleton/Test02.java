@@ -8,15 +8,15 @@ class Car2 {
   String model;
   int cc;
   
-  // 1) 인스턴스 주소를 보관할 클래스 필드를 선언한다.
+  // 인스턴스 주소를 받을 클래스 필드를 선언한다.
   private static Car2 instance;
   
-  // 2) 생성자를 정의하고 private으로 선언하여 비공개로 만들어라.
+  // 1) 생성자를 정의하고 private으로 선언하여 비공개로 만들어라.
   // => 비공개 생성자를 외부에서 호출할 수 없다.
   // => 오직 내부에서만 호출할 수 있다.
   private Car2() {}
   
-  // 3) 인스턴스를 생성해주는 메서드를 정의한다.
+  // 2) 인스턴스를 생성해주는 메서드를 정의한다.
   public static Car2 getInstance() {
     if (Car2.instance == null) {
       // 아직 인스턴스를 생성한 적이 없다면 즉시 인스턴스를 생성한다.

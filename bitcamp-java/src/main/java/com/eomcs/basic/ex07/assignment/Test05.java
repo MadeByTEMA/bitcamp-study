@@ -12,27 +12,32 @@ import java.util.Scanner;
 // *****
 //
 public class Test05 {
+  
   public static void main(String[] args) {
     // 사용자로부터 밑변의 길이를 입력 받는다.
-    Scanner keyboard = new Scanner(System.in);
-    System.out.println("밑변의 길이? ");
-    int base = keyboard.nextInt();
-    int temp = base;
+    Scanner keyScan = new Scanner(System.in);
+    System.out.print("밑변의 길이? ");
+    int base = keyScan.nextInt();
+    keyScan.close();
+    
     // 직삼각형을 출력한다.
-    printTriangle(base, temp);
+    printTriangle(base);
   }
-
-  static int printTriangle(int base, int temp) {
+  
+  static void printTriangle(int base) {
     // 코드를 완성하시오!
-    if(base == 0)
-      return 0;
-    for(int i = base; i <= temp; i++) {
+    if (base == 0)
+      return;
+    
+    printTriangle(base - 1);
+    
+    for (int i = 0; i < base; i++) {
       System.out.print("*");
     }
     System.out.println();
-    return base + printTriangle(base-1, temp); 
   }
 }
+
 
 
 
