@@ -6,7 +6,7 @@ public class Test03 {
     Car c1 = new Car();
     
     c1.check();
+    c1.check();
     
-    System.out.printf("c1.engine.oilState = %d\n", c1.engine.oilState);
   }
 }

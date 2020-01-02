@@ -1,15 +1,14 @@
 package com.eomcs.oop.ex03.test;
 
-import java.sql.Date;
-
 public class Car {
+  
   boolean on;
   int speed;
   String model;
   String maker;
   Engine engine;
   int distance;
-
+  
   Car() {
     this.engine = new Engine(4, 16, 1980);
   }
@@ -17,11 +16,11 @@ public class Car {
   void start() {
     this.on = true;
   }
-
+  
   void stop() {
     this.on = false;
   }
-
+  
   void check() {
     if (this.engine.oilState == 0) {
       this.engine.cleanOil();
@@ -29,4 +28,18 @@ public class Car {
     }
     System.out.println("자동차를 정비했습니다!");
   }
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
