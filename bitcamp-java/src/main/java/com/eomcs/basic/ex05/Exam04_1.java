@@ -16,6 +16,7 @@ public class Exam04_1 {
         System.out.println(i << 1); // 22 => 00010110
         System.out.println(i << 2); // 44 => 00101100
         System.out.println(i << 3); // 88 => 01011000
+        
     }
 }
 
