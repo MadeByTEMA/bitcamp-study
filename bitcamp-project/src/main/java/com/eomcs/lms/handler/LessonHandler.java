@@ -2,6 +2,7 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.ArrayList;
 
@@ -54,5 +55,110 @@ public class LessonHandler {
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), l.getStartDate(), l.getEndDate(), l.getTotalHours());
     }
+  }
+
+  public void detailLesson() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine();
+
+    if (index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+    Lesson lesson = this.lessonList.get(index);
+
+    if (lesson == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("수업명: %s\n", lesson.getTitle());
+    System.out.printf("수업내용: %s\n", lesson.getDescription());
+    System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
+    System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
+    System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+  }
+
+  public void updateLesson() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine();
+
+    if(index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+    Lesson oldLesson = this.lessonList.get(index);
+
+    if(oldLesson == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
+    Lesson newLesson = new Lesson();
+
+    newLesson.setNo(oldLesson.getNo());
+
+    System.out.printf("수업명(%s)? \n", oldLesson.getTitle());
+    newLesson.setTitle(input.nextLine());
+    if(newLesson.getTitle().length() == 0)
+      newLesson.setTitle(oldLesson.getTitle());
+
+    System.out.printf("수업내용(%s)? \n", oldLesson.getDescription());
+    newLesson.setDescription(input.nextLine());
+    if(newLesson.getDescription().length() == 0)
+      newLesson.setDescription(oldLesson.getDescription());
+
+    System.out.printf("시작일(%s)? \n", oldLesson.getStartDate());
+    String startDate = input.nextLine();
+    if (startDate.length() == 0) 
+      newLesson.setStartDate(oldLesson.getStartDate());
+    newLesson.setStartDate(Date.valueOf(startDate));
+
+    System.out.printf("종료일(%s)? \n", oldLesson.getEndDate());
+    String endDate = input.nextLine();
+    if (endDate.length() == 0)
+      newLesson.setEndDate(oldLesson.getEndDate());
+    newLesson.setEndDate(Date.valueOf(endDate));
+
+    System.out.printf("총수업시간(%d)? \n", oldLesson.getTotalHours());
+    String totalHours = input.nextLine();
+    if (totalHours.length() == 0)
+      newLesson.setTotalHours(oldLesson.getTotalHours());
+    newLesson.setTotalHours(Integer.valueOf(totalHours));
+
+    System.out.printf("일수업시간(%d)? \n", oldLesson.getDayHours());
+    String dayHours = input.nextLine();
+    if (dayHours.length() == 0)
+      newLesson.setDayHours(oldLesson.getDayHours());
+    newLesson.setDayHours(Integer.valueOf(dayHours));
+
+    this.lessonList.set(index, newLesson);
+    System.out.println("수업을 변경했습니다.");
+
+  }
+
+  public void deleteLesson() {
+    System.out.print("번호? ");
+    int index = input.nextInt();
+    input.nextLine();
+
+    if(index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+
+    Lesson lesson = this.lessonList.get(index);
+
+    if(lesson == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    this.lessonList.remove(index);
+
+    System.out.println("게시글을 삭제했습니다.");
   }
 }

@@ -7,7 +7,6 @@ public class Board {
   private String title;
   private Date date;
   private int viewCount;
-  private String writer;
 
   public int getNo() {
     return no;
@@ -39,14 +38,6 @@ public class Board {
 
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
-  }
-
-  public String getWriter() {
-    return writer;
-  }
-
-  public void setWriter(String writer) {
-    this.writer = writer;
   }
 
 }

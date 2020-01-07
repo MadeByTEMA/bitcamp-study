@@ -46,14 +46,14 @@ public class BoardHandler {
     board.setDate(new Date(System.currentTimeMillis()));
     board.setViewCount(0);
 
-    // 게시물 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
+    // 게시글 데이터가 보관된 Board 인스턴스의 주소를 레퍼런스 배열에 저장한다.
     boardList.add(board);
 
     System.out.println("저장하였습니다.");
   }
 
   public void detailBoard() {
-    System.out.println("게시물 번호? ");
+    System.out.println("게시글 번호? ");
     int index = input.nextInt();
     input.nextLine();
 
@@ -68,5 +68,53 @@ public class BoardHandler {
     System.out.printf("제목: %s\n", board.getTitle());
     System.out.printf("등록일: %s\n", board.getDate());
     System.out.printf("조회수: %d\n", board.getViewCount());
+  }
+  
+  public void updateBoard() {
+    System.out.println("게시글 번호? ");
+    int index = input.nextInt();
+    input.nextLine();
+
+    Board oldBoard = this.boardList.get(index);
+
+    if (oldBoard == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
+    System.out.printf("내용(%s)? ",oldBoard.getTitle());
+    String title = input.nextLine();
+
+    
+    if (title.length() == 0) {
+      System.out.println("게시글 변경을 취소했습니다.");
+      return;
+    }
+    
+    Board newBoard = new Board();
+    newBoard.setNo(oldBoard.getNo());
+    newBoard.setViewCount(oldBoard.getViewCount());
+    newBoard.setTitle(title);
+    newBoard.setDate(new Date(System.currentTimeMillis()));
+    
+    this.boardList.set(index, newBoard);
+    System.out.println("게시글을 변경했습니다.");
+  }
+  
+  public void deleteBoard() {
+    System.out.println("게시글 번호? ");
+    int index = input.nextInt();
+    input.nextLine();
+
+    Board board = this.boardList.get(index);
+
+    if (board == null) {
+      System.out.println("게시글 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    
+    this.boardList.remove(index);
+    
+    System.out.println("게시글을 삭제했습니다.");
   }
 }

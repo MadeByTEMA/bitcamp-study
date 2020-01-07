@@ -52,6 +52,35 @@ public class ArrayList<E> {
     }
   }
   
+  public E set(int index, E obj) {
+    if (index < 0 || index >= this.size)
+      return;
+    
+    E old = (E) this.list[index];
+    this.list[index] = obj;
+    
+    return old;
+  }
+  
+  public E remove(int index) {
+    if (index < 0 || index >= this.size)
+      return null;
+    
+    // 삭제할 항목을 따로 보관해둔다.
+    E old = (E) this.list[index];
+    
+    for(int i = index + 1; i < this.size; i++) {
+      this.list[i - 1] = this.list[i]
+    }
+    
+    this size --;
+    
+    this.list[this.size] = null; 
+    
+    // 삭제한 항목을 리턴한다.
+    return old;
+  }
+  
   public int size() {
     return this.size;
   }
