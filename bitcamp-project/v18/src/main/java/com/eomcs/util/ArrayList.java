@@ -1,8 +1,8 @@
-package com.eomcs.lms.handler;
+package com.eomcs.util;
 
 import java.util.Arrays;
 import com.eomcs.lms.domain.Board;
-public class ArrayList {
+public class ArrayList<E> {
 
   static final int DEFAULT_CAPACITY = 3;
   Object[] list;
@@ -18,38 +18,39 @@ public class ArrayList {
     else
       this.list = new Object[capacity];
   }
-  public Object[] toArray() {
-    /*
-    Board[] arr = new Board[this.size];
-    for (int i = 0; i < this.size; i++) {
-      arr[i] = this.list[i];
-    }
-        return arr;
-     */
-    return Arrays.copyOf(this.list, this.size);
-  }
 
-  public void add(Object obj) {
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public E[] toArray(E[] arr) {
+    System.arraycopy(this.list, 0, arr, 0, this.size);
+    /*
+    // 위의 arraycopy는 다음 코드와 같다.
+    for (int i = 0; i < this.size; i++) {
+      arr[i] = (E)this.list[i];
+    }
+    */
+   return null;
+    // return (E[]) Arrays.copyOf(this.list, this.size, arr);
+  }
+  
+  public void add(E obj) {
     if(this.size == this.list.length) {
       int oldCapacity = this.list.length;
       int newCapacity = oldCapacity + (oldCapacity >> 1);
-      /*
-      Board[] arr = new Board[newCapacity];
-      for (int i = 0; i < this.list.length; i++) {
-        arr[i] = this.list[i];
-      }
-      this.list = arr;
-       */
       this.list = Arrays.copyOf(this.list, newCapacity);
     }
     this.list[this.size++] = obj;
   }
 
-  public Object get(int idx) { 
+  @SuppressWarnings("unchecked")
+  public E get(int idx) { 
     if (idx >= 0 && idx < this.size) {
-      return this.list[idx];
+      return (E)this.list[idx];
     } else {
       return null;
     }
+  }
+  
+  public int size() {
+    return this.size;
   }
 }

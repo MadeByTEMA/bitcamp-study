@@ -3,26 +3,31 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.ArrayList;
 
 public class BoardHandler {
 
-  ArrayList boardList;
+  ArrayList<Board> boardList;
   Scanner input;
   
   public BoardHandler(Scanner input) {
     this.input = input;
-    boardList = new ArrayList();
+    boardList = new ArrayList<>();
   }
   
   public BoardHandler(Scanner input, int capacity) {
     this.input = input;
-    boardList = new ArrayList(capacity);
+    boardList = new ArrayList<>(capacity);
   }
 
   public void listBoard() {
-    Object[] arr = boardList.toArray();
-    for (Object obj : arr) {
-      Board b = (Board)obj;
+    // BoardList의 보관된 값을 받을 배열을 준비한다.
+    Board[] arr = new Board[this.boardList.size()];
+    
+    // toArray()에게 빈 배열을 넘겨서 복사 받는다.
+    this.boardList.toArray(arr);
+    
+    for (Board b : arr) {
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
     }
@@ -52,7 +57,7 @@ public class BoardHandler {
     int index = input.nextInt();
     input.nextLine();
 
-    Board board = (Board) this.boardList.get(index);
+    Board board = this.boardList.get(index);
 
     if (board == null) {
       System.out.println("게시문 인덱스가 유효하지 않습니다.");
