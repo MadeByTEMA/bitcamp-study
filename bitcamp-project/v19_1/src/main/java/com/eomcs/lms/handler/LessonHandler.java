@@ -58,19 +58,22 @@ public class LessonHandler {
   }
 
   public void detailLesson() {
-    System.out.print("수업 번호? ");
-    int no = input.nextInt();
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfLesson(no);
-
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다.");
+    if (index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
       return;
     }
 
     Lesson lesson = this.lessonList.get(index);
-    
+
+    if (lesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
+      return;
+    }
+
     System.out.printf("수업명: %s\n", lesson.getTitle());
     System.out.printf("수업내용: %s\n", lesson.getDescription());
     System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
@@ -79,18 +82,21 @@ public class LessonHandler {
   }
 
   public void updateLesson() {
-    System.out.print("수업 번호? ");
-    int no = input.nextInt();
+    System.out.print("번호? ");
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfLesson(no);
-
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다.");
+    if(index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
       return;
     }
 
     Lesson oldLesson = this.lessonList.get(index);
+
+    if(oldLesson == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
 
     Lesson newLesson = new Lesson();
 
@@ -159,29 +165,23 @@ public class LessonHandler {
   }
 
   public void deleteLesson() {
-    System.out.print("수업 번호? ");
-    int no = input.nextInt();
+    System.out.print("번호? ");
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfLesson(no);
-
-    if (index == -1) {
-      System.out.println("해당 번호의 수업이 없습니다.");
+    if(index < 0 || index >= this.lessonList.size()) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
       return;
     }
 
+    Lesson lesson = this.lessonList.get(index);
+
+    if(lesson == null) {
+      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+      return;
+    }
     this.lessonList.remove(index);
 
     System.out.println("게시글을 삭제했습니다.");
-  }
-  
-  private int indexOfLesson(int no) {
-    for (int i = 0; i < this.lessonList.size(); i++) {
-      Lesson temp = this.lessonList.get(i);
-      if (temp.getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
   }
 }

@@ -55,17 +55,20 @@ public class MemberHandler {
 
   public void detailMember() {
     System.out.print("번호? ");
-    int no = input.nextInt();
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfMember(no);
+    if (index < 0 || index >= this.memberList.size()) {
+      System.out.println("해당 학생을 찾을 수 없습니다.");
+      return;
+    }
 
-    if (index == -1) {
+    Member member = this.memberList.get(index);
+
+    if (member == null) {
       System.out.println("게시문 인덱스가 유효하지 않습니다.");
       return;
     }
-    
-    Member member = this.memberList.get(index);
 
     System.out.printf("이름: %s\n", member.getName());
     System.out.printf("이메일: %s\n", member.getEmail());
@@ -77,17 +80,20 @@ public class MemberHandler {
 
   public void updateMember() {
     System.out.print("번호? ");
-    int no = input.nextInt();
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfMember(no);
+    if (index < 0 || index >= this.memberList.size()) {
+      System.out.println("해당 학생을 찾을 수 없습니다.");
+      return;
+    }
 
-    if (index == -1) {
+    Member oldMember = this.memberList.get(index);
+
+    if (oldMember == null) {
       System.out.println("게시문 인덱스가 유효하지 않습니다.");
       return;
     }
-    
-    Member oldMember = this.memberList.get(index);
 
     Member newMember = new Member();
 
@@ -127,28 +133,15 @@ public class MemberHandler {
 
   public void deleteMember() {
     System.out.print("번호? ");
-    int no = input.nextInt();
+    int index = input.nextInt();
     input.nextLine();
 
-    int index = indexOfMember(no);
-
-    if (index == -1) {
-      System.out.println("게시문 인덱스가 유효하지 않습니다.");
+    if (index < 0 || index >= this.memberList.size()) {
+      System.out.println("해당 학생을 찾을 수 없습니다.");
       return;
     }
-    
     this.memberList.remove(index);
 
     System.out.println("회원을 삭제하였습니다.");
-  }
-  
-  private int indexOfMember(int no) {
-    for (int i = 0; i < this.memberList.size(); i++) {
-      Member temp = this.memberList.get(i);
-      if (temp.getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
   }
 }
