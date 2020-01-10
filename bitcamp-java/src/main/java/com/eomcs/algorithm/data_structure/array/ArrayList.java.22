@@ -1,37 +1,38 @@
-package com.eomcs.util;
+package com.eomcs.algorithm.data_structure.array;
 
 import java.util.Arrays;
 
 public class ArrayList<E> {
-
-  final int DEFAULT_CAPACITY = 10;
+  
+  private static final int DEFAULT_CAPACITY = 2;
+  
   Object[] elementData;
   int size;
-
+  
   public ArrayList() {
-    elementData = new Object[DEFAULT_CAPACITY];
+    this.elementData = new Object[DEFAULT_CAPACITY];
   }
-
+  
   public ArrayList(int initialCapacity) {
-    if(initialCapacity < DEFAULT_CAPACITY) {
+    if (initialCapacity < DEFAULT_CAPACITY) {
       this.elementData = new Object[DEFAULT_CAPACITY];
     } else {
       this.elementData = new Object[initialCapacity];
     }
   }
   
-  public void add (E e) {
+  public void add(E e) {
     if (this.size == this.elementData.length) {
       int oldSize = this.elementData.length;
-      int newSize = oldSize + oldSize >> 2;
-    
-    this.elementData = Arrays.copyOf(this.elementData, newSize);
-    /*
+      int newSize = oldSize + (oldSize >> 1);
+      
+      this.elementData = Arrays.copyOf(this.elementData, newSize);
+      /*
       Object[] newArr = new Object[newSize];
       for (int i = 0; i < this.size; i++) {
         newArr[i] = this.elementData[i];
       }
-      this elementData = newArr;
+      this.elementData = newArr;
       */
     }
     this.elementData[this.size++] = e;
@@ -62,7 +63,8 @@ public class ArrayList<E> {
     }
     
     E oldValue = (E) this.elementData[index];
-    System.arraycopy(this.elementData, index + 1, this.elementData, index, this.size);
+    System.arraycopy(this.elementData, index + 1, 
+        this.elementData, index, this.size - (index + 1) );
     /*
     for (int i = index + 1; i < this.size; i++) {
       this.elementData[i - 1] = this.elementData[i];
@@ -87,3 +89,8 @@ public class ArrayList<E> {
     */
   }
 }
+
+
+
+
+

@@ -1,19 +1,24 @@
-package com.eomcs.util;
+package com.eomcs.algorithm.data_structure.array;
 
 public class ArrayList {
-
+  
   Object[] elementData;
   int size;
   
   public ArrayList() {
     super();
     
-    elementData = new Object[100];
+    this.elementData = new Object[100];
   }
   
   public ArrayList(int initialCapacity) {
     super();
     
-    elementData = new Object[initialCapacity];
+    this.elementData = new Object[initialCapacity];
   }
 }
+
+
+
+
+

@@ -1,24 +1,30 @@
-package com.eomcs.util;
+package com.eomcs.algorithm.data_structure.array;
 
 public class ArrayList {
-
-  final int DEFAULT_CAPACITY = 10;
+  
+  private static final int DEFAULT_CAPACITY = 10;
+  
   Object[] elementData;
   int size;
-
+  
   public ArrayList() {
-    elementData = new Object[DEFAULT_CAPACITY];
+    this.elementData = new Object[DEFAULT_CAPACITY];
   }
-
+  
   public ArrayList(int initialCapacity) {
-    if(initialCapacity < DEFAULT_CAPACITY) {
+    if (initialCapacity < DEFAULT_CAPACITY) {
       this.elementData = new Object[DEFAULT_CAPACITY];
     } else {
       this.elementData = new Object[initialCapacity];
     }
   }
   
-  public void add (Object e) {
+  public void add(Object e) {
     this.elementData[this.size++] = e;
   }
 }
+
+
+
+
+
