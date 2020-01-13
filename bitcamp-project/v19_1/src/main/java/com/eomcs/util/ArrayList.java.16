@@ -44,14 +44,19 @@ public class ArrayList {
     return this.elementData[index];
   }
   
-  public void set(int index, Object e) {
+  public Object set(int index, Object e) {
     if (index < 0 || index >= this.size) {
-      return;
+      return null;
     }
+    Object oldValue = this.elementData[index];
     this.elementData[index] = e;
+    return oldValue;
   }
   
   public void remove(int index) {
+      if (index < 0 || index >= this.size) {
+      return null;
+    }
     for (int i = index + 1; i < this.size; i++) {
       this.elementData[index - 1] = this.elementData[index];
     }

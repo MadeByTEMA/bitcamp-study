@@ -55,5 +55,6 @@ public class ArrayList {
     for (int i = index + 1; i < this.size; i++) {
       this.elementData[index - 1] = this.elementData[index];
     }
+    this.size--;
   }
 }

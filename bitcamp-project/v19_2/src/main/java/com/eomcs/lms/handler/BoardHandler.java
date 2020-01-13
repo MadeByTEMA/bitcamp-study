@@ -114,7 +114,6 @@ public class BoardHandler {
 
     int index = indexOfBoard(no);
     
-   
     if (index == -1) {
       System.out.println("게시글 인덱스가 유효하지 않습니다.");
       return;

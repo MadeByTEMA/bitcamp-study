@@ -25,4 +25,8 @@ public class ArrayList {
   public Object get(int index) {
     return this.elementData[index];
   }
+  
+  public void set(int index, Object e) {
+    this.elementData[index] = e;
+  }
 }

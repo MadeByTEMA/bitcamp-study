@@ -80,4 +80,9 @@ public class LinkedList {
     
     return deletedNode.value;
   }
+  
+    static class Node {
+    Object value;
+    Node next;
+  }
 }

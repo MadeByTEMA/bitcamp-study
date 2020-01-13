@@ -109,5 +109,9 @@ public class LinkedList<E> {
     
     return arr;
   }
-
+  
+  static class Node {
+    Object value;
+    Node next;
+  }
 }

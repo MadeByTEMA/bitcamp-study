@@ -1,7 +1,6 @@
 package com.eomcs.util;
 
 import java.util.Arrays;
-import com.eomcs.lms.domain.Board;
 public class ArrayList<E> {
 
   static final int DEFAULT_CAPACITY = 3;
