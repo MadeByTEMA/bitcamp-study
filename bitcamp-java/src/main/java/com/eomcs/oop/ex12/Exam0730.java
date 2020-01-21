@@ -34,10 +34,10 @@ public class Exam0730 {
     Factory1 f1 = Message::new; // Factory() 생성자를 가리킨다.
     Factory2 f2 = Message::new; // Factory(String) 생성자를 가리킨다.
 
-    Message msg = f1.get(); // => new Message()
+    Message msg = f1.get(); // ==> new Message()
     msg.print();
 
-    msg = f2.get("홍길동"); // => new Message("홍길동")
+    msg = f2.get("홍길동"); // ==> new Message("홍길동")
     msg.print();
 
   }
