@@ -6,6 +6,7 @@ public class Product {
   // 그래서 실무에서는 보통 정수 값으로 처리한다.
   // 그러면 다음과 같이 상수를 정의할 수 있다.
   // 이때 상수의 이름을 대문자로 지어서 구분하기 쉽도록 한다.
+  //
   public static final int COMPUTER_CPU = 1;
   public static final int COMPUTER_VGA = 2;
   public static final int COMPUTER_RAM = 3;

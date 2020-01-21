@@ -1,4 +1,4 @@
-// 상수 코드를 별도의 클래스로 분리하여 다루기
+// 상수를 별도의 클래스로 분리하여 다루기
 package com.eomcs.oop.ex11.c.step5;
 
 public class Exam0110 {
@@ -9,13 +9,13 @@ public class Exam0110 {
     p.price = 2000000;
 
     Product p2 = new Product();
-    p.category = Category.COMPUTER_RAM; // 컴퓨터 / RAM
-    p.name = "삼성모듈램 4GB";
-    p.price = 80000;
+    p2.category = Category.COMPUTER_RAM;
+    p2.name = "삼성모듈램 4GB";
+    p2.price = 80000;
 
     Product p3 = new Product();
-    p.category = Category.BOOK_NOVEL; // <== 잘못된 값을 넣을 수 없다!
-    p.name = "토지";
-    p.price = 18000;
+    p3.category = Category.BOOK_NOVEL;
+    p3.name = "토지";
+    p3.price = 18000;
   }
 }

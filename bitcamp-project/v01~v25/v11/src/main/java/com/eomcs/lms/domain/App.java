@@ -1,8 +1,8 @@
 package com.eomcs.lms.domain;
 
 import java.util.Scanner;
-import com.eomcs.lms.handler.BoardHandler;
-import com.eomcs.lms.handler.LessonHandler;
+import com.eomcs.lms.handler.BoardAddCommand;
+import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.MemberHandler;
 
 public class App {

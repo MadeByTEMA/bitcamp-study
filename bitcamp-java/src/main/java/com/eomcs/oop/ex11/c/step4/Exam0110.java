@@ -1,9 +1,10 @@
-// 상수 변수를 활용한 후 : 카테고리를 정수타입의 상수로 정의
+// 상수를 활용한 후 : 카테고리를 정수타입의 상수로 정의
 package com.eomcs.oop.ex11.c.step4;
+
 
 public class Exam0110 {
   public static void main(String[] args) {
-    // 카테고리 값을 정수로 정의하면 메모리가 절약된다.
+    // 카테고리 값을 정수를 정의하면 메모리가 절약된다.
     // 카테고리 값을 상수로 정의하면 따로 주석을 달 필요가 없다.
     // 또한 상수의 이름을 대문자로 하면 상수임을 직관적으로 알 수 있다.
     //
@@ -13,19 +14,14 @@ public class Exam0110 {
     p.price = 2000000;
 
     Product p2 = new Product();
-    p.category = Product.COMPUTER_RAM; // 컴퓨터 / RAM
-    p.name = "삼성모듈램 4GB";
-    p.price = 80000;
+    p2.category = Product.COMPUTER_RAM;
+    p2.name = "삼성모듈램 4GB";
+    p2.price = 80000;
 
     Product p3 = new Product();
-    p.category = Product.BOOK_NOVEL; // <== 잘못된 값을 넣을 수 없다!
-    p.name = "토지";
-    p.price = 18000;
-
-    // 제품의 카테고리 값처럼 고정된 값은
-    // 상수로 정의해 놓고 쓰면 코드를 작성할 때
-    // 오타를 줄일 수 있고, 코드를 읽기 쉬워진다.
-    //
+    p3.category = Product.BOOK_NOVEL;
+    p3.name = "토지";
+    p3.price = 18000;
 
   }
 }

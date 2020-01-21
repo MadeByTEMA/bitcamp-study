@@ -1,11 +1,11 @@
-// static nested class 문법을 이용하여 상수를 효과적으로 이용하기.
+// static nested class 문법을 이용하여 상수를 효과적으로 관리하기
 package com.eomcs.oop.ex11.c.step7;
 
 public class Category {
 
   // static nested class 를 사용하여
   // 여러 상수를 그룹 별로 묶어 관리한다.
-  //
+  // 이점:
   // => 다음 클래스를 보면 상수를 묶어서 관리하는 용도로 만들었다.
   // => 클래스의 크기도 작다.
   // => 이런 클래스를 별도의 파일로 분리하면 여러 개의 파일이 생겨서 오히려 관리하기 번거롭다.
@@ -18,7 +18,7 @@ public class Category {
 
   // 중첩 클래스 이름을 일부로 소문자로 지어서
   // 마치 일반 필드인것처럼 보이게 한다.
-
+  //
   public static class computer {
     public static final int CPU = 1;
     public static final int VGA = 2;

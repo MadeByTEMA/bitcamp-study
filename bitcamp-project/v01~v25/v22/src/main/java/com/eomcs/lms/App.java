@@ -1,8 +1,8 @@
 package com.eomcs.lms;
 
 import java.util.Scanner;
-import com.eomcs.lms.handler.BoardHandler;
-import com.eomcs.lms.handler.LessonHandler;
+import com.eomcs.lms.handler.BoardAddCommand;
+import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.Queue;
