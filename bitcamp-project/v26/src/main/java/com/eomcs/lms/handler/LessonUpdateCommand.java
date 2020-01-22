@@ -15,7 +15,6 @@ public class LessonUpdateCommand implements Command {
     this.lessonList = list;
   }
 
-
   @Override
   public void execute() {
     int index = indexOfLesson(prompt.inputInt("번호? "));
@@ -47,6 +46,11 @@ public class LessonUpdateCommand implements Command {
     newLesson.setDayHours(prompt.inputInt(String.format("일수업시간(%d)? ", oldLesson.getDayHours()),
         oldLesson.getDayHours()));
 
+    /*
+     * int oldValue = oldLesson.getDayHours(); String label = "일수업시간(" + oldValue + ")? "; int
+     * newValue = inputInt(label, oldValue); newLesson.setDayHours(newValue);
+     */
+
     if (oldLesson.equals(newLesson)) {
       System.out.println("수업 변경을 취소하였습니다.");
       return;
@@ -64,9 +68,6 @@ public class LessonUpdateCommand implements Command {
     }
     return -1;
   }
-
-
-
 }
 
 

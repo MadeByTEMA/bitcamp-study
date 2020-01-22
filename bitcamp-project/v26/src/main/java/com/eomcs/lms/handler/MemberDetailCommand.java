@@ -15,7 +15,6 @@ public class MemberDetailCommand implements Command {
     this.memberList = list;
   }
 
-
   @Override
   public void execute() {
     int index = indexOfMember(prompt.inputInt("번호? "));

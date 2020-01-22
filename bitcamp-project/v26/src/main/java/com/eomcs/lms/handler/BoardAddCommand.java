@@ -1,5 +1,4 @@
-// listBoard() 메서드 변경
-// => toArray()의 리턴 값을 사용하는 대신 iterator()의 리턴 값을 사용하여 목록 출력.
+// "/board/add" 명령어 처리
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
@@ -31,6 +30,7 @@ public class BoardAddCommand implements Command {
 
     System.out.println("저장하였습니다.");
   }
+
 }
 
 

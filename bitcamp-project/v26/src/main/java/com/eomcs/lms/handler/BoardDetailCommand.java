@@ -1,11 +1,10 @@
-// listBoard() 메서드 변경
-// => toArray()의 리턴 값을 사용하는 대신 iterator()의 리턴 값을 사용하여 목록 출력.
 package com.eomcs.lms.handler;
 
 import java.util.List;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Prompt;
 
+// "/board/detail" 명령 처리
 public class BoardDetailCommand implements Command {
 
   List<Board> boardList;
@@ -41,6 +40,7 @@ public class BoardDetailCommand implements Command {
     }
     return -1;
   }
+
 }
 
 

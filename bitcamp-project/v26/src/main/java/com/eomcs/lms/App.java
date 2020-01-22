@@ -17,7 +17,7 @@ import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.ComputePlus;
+import com.eomcs.lms.handler.ComputePlusCommand;
 import com.eomcs.lms.handler.HelloCommand;
 import com.eomcs.lms.handler.LessonAddCommand;
 import com.eomcs.lms.handler.LessonDeleteCommand;
@@ -42,29 +42,31 @@ public class App {
 
     Prompt prompt = new Prompt(keyboard);
     HashMap<String, Command> commandMap = new HashMap<>();
-    LinkedList<Board> boardList = new LinkedList<>(); // 컴파일 오류!
+
+    LinkedList<Board> boardList = new LinkedList<>();
     commandMap.put("/board/add", new BoardAddCommand(prompt, boardList));
     commandMap.put("/board/list", new BoardListCommand(boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(prompt, boardList));
-    commandMap.put("/board/delete", new BoardDeleteCommand(prompt, boardList));
     commandMap.put("/board/update", new BoardUpdateCommand(prompt, boardList));
+    commandMap.put("/board/delete", new BoardDeleteCommand(prompt, boardList));
 
     ArrayList<Lesson> lessonList = new ArrayList<>();
     commandMap.put("/lesson/add", new LessonAddCommand(prompt, lessonList));
     commandMap.put("/lesson/list", new LessonListCommand(lessonList));
     commandMap.put("/lesson/detail", new LessonDetailCommand(prompt, lessonList));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(prompt, lessonList));
     commandMap.put("/lesson/update", new LessonUpdateCommand(prompt, lessonList));
+    commandMap.put("/lesson/delete", new LessonDeleteCommand(prompt, lessonList));
 
     LinkedList<Member> memberList = new LinkedList<>();
     commandMap.put("/member/add", new MemberAddCommand(prompt, memberList));
     commandMap.put("/member/list", new MemberListCommand(memberList));
     commandMap.put("/member/detail", new MemberDetailCommand(prompt, memberList));
-    commandMap.put("/member/delete", new MemberDeleteCommand(prompt, memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(prompt, memberList));
+    commandMap.put("/member/delete", new MemberDeleteCommand(prompt, memberList));
 
     commandMap.put("/hello", new HelloCommand(prompt));
-    commandMap.put("/compute/plus", new ComputePlus(prompt));
+    commandMap.put("/compute/plus", new ComputePlusCommand(prompt));
+
 
     String command;
 
@@ -74,18 +76,20 @@ public class App {
 
       if (command.length() == 0)
         continue;
-      if (command.equalsIgnoreCase("quit")) {
+
+      if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-      } else if (command.equals("History")) {
+      } else if (command.equals("history")) {
         printCommandHistory(commandStack.iterator());
         continue;
-      } else if (command.equals("History2")) {
+      } else if (command.equals("history2")) {
         printCommandHistory(commandQueue.iterator());
         continue;
       }
 
       commandStack.push(command);
+
       commandQueue.offer(command);
 
       Command commandHandler = commandMap.get(command);
@@ -100,6 +104,12 @@ public class App {
     keyboard.close();
   }
 
+  // 이전에는 Stack에서 값을 꺼내는 방법과 Queue에서 값을 꺼내는 방법이 다르기 때문에
+  // printCommandHistory()와 printCommandHistory2() 메서드를 따로 정의했다.
+  // 이제 Stack과 Queue는 일관된 방식으로 값을 꺼내주는 Iterator가 있기 때문에
+  // 두 메서드를 하나로 합칠 수 있다.
+  // 파라미터로 Iterator를 받아서 처리하기만 하면 된다.
+  //
   private static void printCommandHistory(Iterator<String> iterator) {
     int count = 0;
     while (iterator.hasNext()) {

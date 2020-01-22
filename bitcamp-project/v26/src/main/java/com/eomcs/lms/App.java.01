@@ -39,27 +39,26 @@ public class App {
 
     Prompt prompt = new Prompt(keyboard);
 
-    LinkedList<Board> boardList = new LinkedList<>(); // 컴파일 오류!
+    LinkedList<Board> boardList = new LinkedList<>();
     Command boardAddCommand = new BoardAddCommand(prompt, boardList);
     Command boardListCommand = new BoardListCommand(boardList);
     Command boardDetailCommand = new BoardDetailCommand(prompt, boardList);
-    Command boardDeleteCommand = new BoardDeleteCommand(prompt, boardList);
     Command boardUpdateCommand = new BoardUpdateCommand(prompt, boardList);
-
+    Command boardDeleteCommand = new BoardDeleteCommand(prompt, boardList);
 
     ArrayList<Lesson> lessonList = new ArrayList<>();
     Command lessonAddCommand = new LessonAddCommand(prompt, lessonList);
     Command lessonListCommand = new LessonListCommand(lessonList);
     Command lessonDetailCommand = new LessonDetailCommand(prompt, lessonList);
-    Command lessonDeleteCommand = new LessonDeleteCommand(prompt, lessonList);
     Command lessonUpdateCommand = new LessonUpdateCommand(prompt, lessonList);
+    Command lessonDeleteCommand = new LessonDeleteCommand(prompt, lessonList);
 
     LinkedList<Member> memberList = new LinkedList<>();
     Command memberAddCommand = new MemberAddCommand(prompt, memberList);
     Command memberListCommand = new MemberListCommand(memberList);
     Command memberDetailCommand = new MemberDetailCommand(prompt, memberList);
-    Command memberDeleteCommand = new MemberDeleteCommand(prompt, memberList);
     Command memberUpdateCommand = new MemberUpdateCommand(prompt, memberList);
+    Command memberDeleteCommand = new MemberDeleteCommand(prompt, memberList);
 
     String command;
 
@@ -115,10 +114,10 @@ public class App {
           boardDetailCommand.execute();
           break;
         case "/board/update":
-          boardDeleteCommand.execute();
+          boardUpdateCommand.execute();
           break;
         case "/board/delete":
-          boardUpdateCommand.execute();
+          boardDeleteCommand.execute();
           break;
         case "history":
           printCommandHistory(commandStack.iterator());

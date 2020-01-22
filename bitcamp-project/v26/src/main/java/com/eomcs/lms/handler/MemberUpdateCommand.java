@@ -29,6 +29,7 @@ public class MemberUpdateCommand implements Command {
 
     newMember.setNo(oldMember.getNo());
     newMember.setRegisteredDate(oldMember.getRegisteredDate());
+
     newMember.setName(
         prompt.inputString(String.format("이름(%s)? ", oldMember.getName()), oldMember.getName()));
 
