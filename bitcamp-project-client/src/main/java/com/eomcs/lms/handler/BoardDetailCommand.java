@@ -23,6 +23,7 @@ public class BoardDetailCommand implements Command {
   public void execute() {
     try {
       int no = prompt.inputInt("번호? ");
+
       out.writeUTF("/board/detail");
       out.writeInt(no);
       out.flush();
@@ -39,6 +40,7 @@ public class BoardDetailCommand implements Command {
       System.out.printf("제목: %s\n", board.getTitle());
       System.out.printf("등록일: %s\n", board.getDate());
       System.out.printf("조회수: %d\n", board.getViewCount());
+
     } catch (Exception e) {
       System.out.println("명령 실행 중 오류 발생!");
     }

@@ -4,15 +4,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import com.eomcs.util.Prompt;
 
-// "/board/delete" 명령 처리
-public class BoardDeleteCommand implements Command {
+public class LessonDeleteCommand implements Command {
 
   ObjectOutputStream out;
   ObjectInputStream in;
 
   Prompt prompt;
 
-  public BoardDeleteCommand(ObjectOutputStream out, ObjectInputStream in, Prompt prompt) {
+  public LessonDeleteCommand(ObjectOutputStream out, ObjectInputStream in, Prompt prompt) {
     this.out = out;
     this.in = in;
     this.prompt = prompt;
@@ -23,7 +22,7 @@ public class BoardDeleteCommand implements Command {
     try {
       int no = prompt.inputInt("번호? ");
 
-      out.writeUTF("/board/delete");
+      out.writeUTF("/lesson/delete");
       out.writeInt(no);
       out.flush();
 
