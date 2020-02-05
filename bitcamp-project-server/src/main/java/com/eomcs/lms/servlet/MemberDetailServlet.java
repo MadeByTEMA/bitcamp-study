@@ -1,29 +1,23 @@
-package com.eomcs.servlet;
+package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import com.eomcs.lms.dao.MemberFileDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberDetailServlet implements Servlet {
 
-  List<Member> members;
+  MemberFileDao memberDao;
 
-  public MemberDetailServlet(List<Member> members) {
-    this.members = members;
+  public MemberDetailServlet(MemberFileDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void service(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
 
-    Member member = null;
-    for (Member b : members) {
-      if (b.getNo() == no) {
-        member = b;
-        break;
-      }
-    }
+    Member member = memberDao.findByNo(no);
 
     if (member != null) {
       out.writeUTF("OK");
@@ -31,9 +25,7 @@ public class MemberDetailServlet implements Servlet {
 
     } else {
       out.writeUTF("FAIL");
-      out.writeUTF("해당 번호의 게시물이 없습니다.");
+      out.writeUTF("해당 번호의 회원이 없습니다.");
     }
   }
 }
-
-

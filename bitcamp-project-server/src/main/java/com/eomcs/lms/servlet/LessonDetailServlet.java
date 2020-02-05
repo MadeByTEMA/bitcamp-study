@@ -1,29 +1,23 @@
-package com.eomcs.servlet;
+package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import com.eomcs.lms.dao.LessonFileDao;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonDetailServlet implements Servlet {
 
-  List<Lesson> lessons;
+  LessonFileDao lessonDao;
 
-  public LessonDetailServlet(List<Lesson> lessons) {
-    this.lessons = lessons;
+  public LessonDetailServlet(LessonFileDao lessonDao) {
+    this.lessonDao = lessonDao;
   }
 
   @Override
   public void service(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
 
-    Lesson lesson = null;
-    for (Lesson b : lessons) {
-      if (b.getNo() == no) {
-        lesson = b;
-        break;
-      }
-    }
+    Lesson lesson = lessonDao.findByNo(no);
 
     if (lesson != null) {
       out.writeUTF("OK");
@@ -31,10 +25,7 @@ public class LessonDetailServlet implements Servlet {
 
     } else {
       out.writeUTF("FAIL");
-      out.writeUTF("해당 번호의 게시물이 없습니다.");
+      out.writeUTF("해당 번호의 수업이 없습니다.");
     }
   }
 }
-
-
-

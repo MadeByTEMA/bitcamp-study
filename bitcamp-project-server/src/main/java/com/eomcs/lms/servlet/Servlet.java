@@ -1,4 +1,4 @@
-package com.eomcs.servlet;
+package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
