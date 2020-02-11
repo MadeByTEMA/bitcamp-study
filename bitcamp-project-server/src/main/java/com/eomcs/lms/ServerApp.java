@@ -31,7 +31,6 @@ import com.eomcs.lms.servlet.MemberListServlet;
 import com.eomcs.lms.servlet.MemberUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 
-public class ServerApp {
 
   // 옵저버 관련 코드
   Set<ApplicationContextListener> listeners = new HashSet<>();
