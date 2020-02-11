@@ -3,6 +3,7 @@ package com.eomcs.net.ex04.stateless3;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -12,6 +13,22 @@ public class CalcServer {
 
   static class RequestHandler extends Thread {
 
+    Socket socket;
+
+    public RequestHandler(Socket socket) {
+      this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+      try {
+        processRequest(socket);
+      } catch (Exception e) {
+        System.out.println("클라이언트 요청 처리 중 오류 발생!");
+      } finally {
+        System.out.println("다음 클라이언트의 요청을 처리합니다.");
+      }
+    }
   }
 
   // 각 클라이언트의 작업 결과를 보관할 맵 객체
@@ -24,14 +41,15 @@ public class CalcServer {
     ServerSocket ss = new ServerSocket(8888);
 
     while (true) {
-      Socket socket = ss.accept();
       System.out.println("클라이언트 요청 처리!");
-      try {
-        processRequest(socket);
-      } catch (Exception e) {
-        System.out.println("클라이언트 요청 처리 중 오류 발생!");
-        System.out.println("다음 클라이언트의 요청을 처리합니다.");
-      }
+      Socket socket = ss.accept();
+      InetSocketAddress remoteAddr = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("클라이언트(%s:%d)가 연결되었음! \n", remoteAddr.getAddress(), remoteAddr.getPort());
+
+      RequestHandler requestHandler = new RequestHandler(socket);
+
+      requestHandler.start();
+      System.out.printf("%s 클라이언트 요청을 스레드에게 맡겼습니다. \n", remoteAddr.getAddress());
     }
     // ss.close();
   }
