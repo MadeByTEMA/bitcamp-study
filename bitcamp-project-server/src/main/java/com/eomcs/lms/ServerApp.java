@@ -100,11 +100,11 @@ public class ServerApp {
         Socket socket = serverSocket.accept();
         System.out.println("클라이언트와 연결되었음!");
 
-        if (processRequest(socket) == 9) {
-          break;
-        }
+        new Thread(() -> {
+          processRequest(socket);
+          System.out.println("--------------------------------------");
+        }).start();
 
-        System.out.println("--------------------------------------");
       }
 
     } catch (Exception e) {
