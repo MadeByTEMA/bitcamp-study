@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
@@ -40,7 +41,9 @@ public class ServerApp {
 
   // 커맨드(예: Servlet 구현체) 디자인 패턴과 관련된 코드
   Map<String, Servlet> servletMap = new HashMap<>();
-  ExecutorService executorService;
+
+  // 스레드 풀
+  ExecutorService executorService = Executors.newCachedThreadPool();
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -102,6 +105,12 @@ public class ServerApp {
         Socket socket = serverSocket.accept();
         System.out.println("클라이언트와 연결되었음!");
 
+        // 스레드풀을 사용할 때는 직접 스레드를 만들지 않는다.
+        // 단지 스레드풀에 "스레드가 실행할 코드(Runnable 구현체)"를 제출한다.
+        // => ExecutorService.submit(new Runnable() {...});
+        // => 스레드풀에 스레드가 없으면 새로 만들어 Runnable 구현체를 실행한다.
+        // => 스레드풀에 스레드가 있으면 그 스레드를 이용하여 Runnable 구현체를 실행한다.
+        //
         executorService.submit(() -> {
           processRequest(socket);
           System.out.println("--------------------------------------");
@@ -113,7 +122,11 @@ public class ServerApp {
     }
 
     notifyApplicationDestroyed();
+
+    // 스레드풀을 다 사용했으면 종료하라고 해야 한다.
     executorService.shutdown();
+    // => 스레드풀을 당장 종료시키는 것이 아니다.
+    // => 스레드풀에 소속된 스레드들의 작업이 모두 끝나면 종료하는 뜻이다.
 
   } // service()
 
