@@ -2,13 +2,14 @@
 package com.eomcs.lms;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import com.eomcs.lms.context.ApplicationContextListener;
@@ -121,39 +122,31 @@ public class ServerApp {
   int processRequest(Socket clientSocket) {
 
     try (Socket socket = clientSocket;
-        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+        Scanner in = new Scanner(socket.getInputStream());
+        PrintStream out = new PrintStream(socket.getOutputStream())) {
 
-      System.out.println("통신을 위한 입출력 스트림을 준비하였음!");
+      String request = in.nextLine();
+      System.out.printf("=> %s\n", request);
 
-      String request = in.readUTF();
-      System.out.println("클라이언트가 보낸 메시지를 수신하였음!");
 
-      if (request.equalsIgnoreCase("/server/stop")) {
-        quit(out);
-        return 9; // 서버를 종료한다.
-      }
+      out.println("안녕하세요!");
+      out.println("반가워요!");
+      out.println("!end!");
 
-      // 클라이언트의 요청을 처리할 객체를 찾는다.
-      Servlet servlet = servletMap.get(request);
 
-      if (servlet != null) {
-        // 클라이언트 요청을 처리할 객체를 찾았으면 작업을 실행시킨다.
-        try {
-          servlet.service(in, out);
+      /*
+       * if (request.equalsIgnoreCase("/server/stop")) { quit(out); return 9; // 서버를 종료한다. } //
+       * 클라이언트의 요청을 처리할 객체를 찾는다. Servlet servlet = servletMap.get(request);
+       *
+       * if (servlet != null) { // 클라이언트 요청을 처리할 객체를 찾았으면 작업을 실행시킨다. try { servlet.service(in, out);
+       *
+       * } catch (Exception e) { // 요청한 작업을 수행하다가 오류 발생할 경우 그 이유를 간단히 응답한다. out.writeUTF("FAIL");
+       * out.writeUTF(e.getMessage());
+       *
+       * // 서버쪽 화면에는 더 자세하게 오류 내용을 출력한다. System.out.println("클라이언트 요청 처리 중 오류 발생:");
+       * e.printStackTrace(); } } else { // 없다면? 간단한 아내 메시지를 응답한다. notFound(out); }
+       */
 
-        } catch (Exception e) {
-          // 요청한 작업을 수행하다가 오류 발생할 경우 그 이유를 간단히 응답한다.
-          out.writeUTF("FAIL");
-          out.writeUTF(e.getMessage());
-
-          // 서버쪽 화면에는 더 자세하게 오류 내용을 출력한다.
-          System.out.println("클라이언트 요청 처리 중 오류 발생:");
-          e.printStackTrace();
-        }
-      } else { // 없다면? 간단한 아내 메시지를 응답한다.
-        notFound(out);
-      }
       out.flush();
       System.out.println("클라이언트에게 응답하였음!");
 
@@ -180,7 +173,7 @@ public class ServerApp {
     System.out.println("서버 수업 관리 시스템입니다.");
 
     ServerApp app = new ServerApp();
-    app.addApplicationContextListener(new DataLoaderListener());
+    // app.addApplicationContextListener(new DataLoaderListener());
     app.service();
   }
 }
