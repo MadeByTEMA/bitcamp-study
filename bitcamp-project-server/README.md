@@ -1,13 +1,10 @@
-# 35 - 스레드풀을 이용하여 스레드를 재사용하기
+# 37_2 - Application Server 구조로 변경: Servlet + DAO 적용
 
 ## 학습목표
 
-- `Flyweight` 디자인 패턴의 용도를 이해한다.
-- `Flyweight` 디자인 패턴의 응용 기법인 Pooling 기법의 동작 원리를 이해한다.
-- Pooling 기법을 사용하여 객체를 재활용할 수 있다.
-- Thread를 종료시키지 않고 계속 재활용할 수 있다.
-- Thread의 wait()/notify()의 사용법을 이해한다.
-- Thread Pool을 적용할 수 있다.
+- Application Server 아키텍처의 구성과 특징을 이해한다.
+- 통신 프로토콜 규칙에 따라 동작하는 서버를 만들 수 있다.
+- DBMS 연동을 위해 프로젝트에 JDBC 드라이버를 추가할 수 있다. 
 
 ## 실습 소스 및 결과
 
@@ -15,16 +12,42 @@
 
 ## 실습  
 
-### 훈련 1: 스레드 풀을 적용하여 스레드를 관리하라.
+### 훈련1: MariaDB JDBC Driver를 프로젝트에 추가하라.
 
-- com.eomcs.lms.ServerApp을 변경한다.
-  - 스레드 풀을 준비한다.
-  - 스레드를 생성할 때 스레드 풀을 사용한다.
+- build.gradle 변경
+  - mvnrepository.com 또는 search.maven.org 에서 'mariadb jdbc' 검색한다.
+  - 라이브러리 정보를 dependencies {} 블록에 추가한다.
+- 프로젝트의 이클립스 설정 파일 갱신 
+  - 'gradle cleanEclipse' 명령으로 기존 이클립스 설정의 제거한다.
+  - 'gradle eclipse' 명령으로 이클립스 설정 파일을 생성한다.
+  - 이클립스 IDE에서 프로젝트를 refresh 한다.
+- 프로젝트에 추가되었는지 확인한다.
+  - 라이브러리 목록을 확인한다.
   
+### 훈련2: 클라이언트 프로젝트에서 만든 DAO 관련 클래스를 가져오라.
+
+- com.eomcs.lms.dao.mariadb 패키지 생성
+- com.eomcs.lms.dao.mariadb.BoardDaoImpl 복사해오기
+- com.eomcs.lms.dao.mariadb.LessonDaoImpl 복사해오기
+- com.eomcs.lms.dao.mariadb.MemberDaoImpl 복사해오기
+
+### 훈련3: Connection 객체를 준비해서 DAO를 생성할 때 주입하라.
+
+- com.eomcs.lms.DataLoaderListener 변경
+  - Connection 객체 생성
+  - mariadb 관련 DAO 객체 생성
+
+### 훈련4: '통신 규칙1'에 따라 동작하도록 BoardListServlet을 변경하라.
+
+- com.eomcs.lms.servlet.Servlet 변경
+  - service(Scanner in, PrintStream out) 메서드 추가한다.
+  - 기존 구현체가 영향 받지 않도록 default 로 선언한다.
+- com.eomcs.lms.servlet.BoardListServlet 변경
+  - service(Scanner in, PrintStream out) 메서드 구현으로 변경한다.
+  - '통신 규칙1'에 따라 클라이언트에게 결과를 응답한다.
+  - 클라이언트의 BoardListCommand 클래스의 소스를 참고하라.
   
-  
-  
-  
-  
-  
- 
+### 훈련5: 클라이언트의 '/board/list' 요청을 BoardListServlet으로 처리하라.
+
+- com.eomcs.lms.ServerApp 변경
+  - 클라이언트 명령을 처리할 서블릿을 찾아 실행한다. 
