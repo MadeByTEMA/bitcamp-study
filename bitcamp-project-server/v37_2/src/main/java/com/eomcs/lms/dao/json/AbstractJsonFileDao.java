@@ -11,6 +11,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.Gson;
 
 // 서브 클래스에게 공통 필드나 메서드를 상속해주는 역할을 하기 때문에
 // => abstract
