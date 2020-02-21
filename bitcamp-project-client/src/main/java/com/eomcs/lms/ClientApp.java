@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import com.eomcs.lms.handler.Command;
 import com.eomcs.util.Prompt;
 
 public class ClientApp {
@@ -17,7 +16,6 @@ public class ClientApp {
 
   Deque<String> commandStack;
   Queue<String> commandQueue;
-
 
   public ClientApp() throws Exception {
     commandStack = new ArrayDeque<>();
@@ -49,19 +47,28 @@ public class ClientApp {
       processCommand(command);
     }
     keyboard.close();
-
-    try {
-    } catch (Exception e) {
-    }
   }
 
   private void processCommand(String command) {
-    Command commandHandler = commandMap.get(command);
-    if (commandHandler == null) {
-      System.out.println("실행할 수 없는 명령입니다.");
-      return;
+    // 명령어 형식을 변경!
+    // [기존 방식]
+    // => 예) /board/list
+    // [새 방식]
+    // => 예) bitcamp://서버주소:포트번호/board/list
+    //
+    String host = null;
+    int port = 0;
+    String serletPath = null;
+
+    try {
+      if (!command.startsWith("bitcamp://")) {
+        throw new Exception("명령어 형식이 옳지 않습니다!");
+      }
+
+
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-    commandHandler.execute();
   }
 
   private void printCommandHistory(Iterator<String> iterator) {
