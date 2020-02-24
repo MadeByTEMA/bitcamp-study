@@ -10,8 +10,14 @@ public class PhotoBoard implements Serializable {
   int no;
   int lessonNo;
   String title;
-  Date createDate;
+  Date createdDate;
   int viewCount;
+
+  @Override
+  public String toString() {
+    return "PhotoBoard [no=" + no + ", lessonNo=" + lessonNo + ", title=" + title + ", createdDate="
+        + createdDate + ", viewCount=" + viewCount + "]";
+  }
 
   public int getNo() {
     return no;
@@ -37,12 +43,12 @@ public class PhotoBoard implements Serializable {
     this.title = title;
   }
 
-  public Date getCreateDate() {
-    return createDate;
+  public Date getCreatedDate() {
+    return createdDate;
   }
 
-  public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 
   public int getViewCount() {
@@ -52,4 +58,6 @@ public class PhotoBoard implements Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
+
+
 }

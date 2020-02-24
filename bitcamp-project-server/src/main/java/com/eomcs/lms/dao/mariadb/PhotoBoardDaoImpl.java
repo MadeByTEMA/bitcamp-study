@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.domain.PhotoBoard;
 
-public class PhotoBoardDaoImpl implements BoardDao {
+public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   Connection con;
 
@@ -17,41 +17,39 @@ public class PhotoBoardDaoImpl implements BoardDao {
   }
 
   @Override
-  public int insert(Board board) throws Exception {
+  public int insert(PhotoBoard photoBoard) throws Exception {
     try (Statement stmt = con.createStatement()) {
 
-      // DBMS에게 데이터 입력하라는 명령을 보낸다.
-      // SQL 문법:
-      // => insert into 테이블명(컬럼명1,컬럼명2,...) values(값1, 값2, ...)
-      // => executeUpdate()의 리턴 값은 서버에 입력된 데이터의 개수이다.
-      int result = stmt.executeUpdate("insert into lms_board(conts) values('" //
-          + board.getTitle() + "')");
+      int result = stmt.executeUpdate( //
+          "insert into lms_photo(titl,lesson_id) values('" //
+              + photoBoard.getTitle() + "', " + photoBoard.getLessonNo() //
+              + ")");
 
       return result;
     }
   }
 
   @Override
-  public List<Board> findAll() throws Exception {
-    try (// MariaDB에 명령을 전달할 객체 준비
-        Statement stmt = con.createStatement();
-
-        // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 준비
+  public List<PhotoBoard> findByLessonNo(int lessonNo) throws Exception {
+    try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
-            "select board_id, conts, cdt, vw_cnt from lms_board order by board_id desc")) {
+            "select photo_id, titl, cdt, vw_cnt, lesson_id" //
+                + " from lms_photo" //
+                + " where lesson_id=" + lessonNo //
+                + " order by photo_id desc")) {
 
-      ArrayList<Board> list = new ArrayList<>();
+      ArrayList<PhotoBoard> list = new ArrayList<>();
 
-      // ResultSet 도구를 사용하여 데이터를 하나씩 가져온다.
-      while (rs.next()) { // 데이터를 한 개 가져왔으면 true를 리턴한다.
-        Board board = new Board();
+      while (rs.next()) {
+        PhotoBoard photoBoard = new PhotoBoard();
 
-        board.setNo(rs.getInt("board_id"));
-        board.setTitle(rs.getString("conts"));
-        board.setDate(rs.getDate("cdt"));
-        board.setViewCount(rs.getInt("vw_cnt"));
+        photoBoard.setNo(rs.getInt("photo_id"));
+        photoBoard.setTitle(rs.getString("titl"));
+        photoBoard.setCreatedDate(rs.getDate("cdt"));
+        photoBoard.setViewCount(rs.getInt("vw_cnt"));
+        photoBoard.setLessonNo(rs.getInt("lesson_id"));
 
-        list.add(board);
+        list.add(photoBoard);
       }
 
       return list;
@@ -59,18 +57,20 @@ public class PhotoBoardDaoImpl implements BoardDao {
   }
 
   @Override
-  public Board findByNo(int no) throws Exception {
+  public PhotoBoard findByNo(int no) throws Exception {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
-            "select board_id, conts, cdt, vw_cnt from lms_board where board_id=" + no)) {
+            "select photo_id, titl, cdt, vw_cnt, lesson_id" + //
+                " from lms_photo where photo_id=" + no)) {
 
-      if (rs.next()) { // 데이터를 한 개 가져왔으면 true를 리턴한다.
-        Board board = new Board();
-        board.setNo(rs.getInt("board_id"));
-        board.setTitle(rs.getString("conts"));
-        board.setDate(rs.getDate("cdt"));
-        board.setViewCount(rs.getInt("vw_cnt"));
-        return board;
+      if (rs.next()) {
+        PhotoBoard photoBoard = new PhotoBoard();
+        photoBoard.setNo(rs.getInt("photo_id"));
+        photoBoard.setTitle(rs.getString("titl"));
+        photoBoard.setCreatedDate(rs.getDate("cdt"));
+        photoBoard.setViewCount(rs.getInt("vw_cnt"));
+        photoBoard.setLessonNo(rs.getInt("lesson_id"));
+        return photoBoard;
 
       } else {
         return null;
@@ -79,16 +79,12 @@ public class PhotoBoardDaoImpl implements BoardDao {
   }
 
   @Override
-  public int update(Board board) throws Exception {
+  public int update(PhotoBoard photoBoard) throws Exception {
     try (Statement stmt = con.createStatement()) {
-
-      // DBMS에게 데이터를 변경하라는 명령을 보낸다.
-      // SQL 문법:
-      // => update 테이블명 set 컬럼명1=값1, 컬럼명2=값2, ... where 조건
-      // => executeUpdate()의 리턴 값은 SQL 명령에 따라 변경된 데이터의 개수이다.
-      int result = stmt.executeUpdate("update lms_board set conts = '" + //
-          board.getTitle() + "' where board_id=" + board.getNo());
-
+      int result = stmt.executeUpdate( //
+          "update lms_photo set titl='" //
+              + photoBoard.getTitle() //
+              + "' where photo_id=" + photoBoard.getNo());
       return result;
     }
   }
@@ -96,13 +92,9 @@ public class PhotoBoardDaoImpl implements BoardDao {
   @Override
   public int delete(int no) throws Exception {
     try (Statement stmt = con.createStatement()) {
-
-      // DBMS에게 데이터를 삭제하라는 명령을 보낸다.
-      // SQL 문법:
-      // => delete from 테이블명 where 조건
-      // => executeUpdate()의 리턴 값은 SQL 명령에 따라 삭제된 데이터의 개수이다.
-      int result = stmt.executeUpdate("delete from lms_board where board_id=" + no);
-
+      int result = stmt.executeUpdate( //
+          "delete from lms_photo" //
+              + " where photo_id=" + no);
       return result;
     }
   }
