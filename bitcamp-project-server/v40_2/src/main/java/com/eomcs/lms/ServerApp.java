@@ -119,11 +119,11 @@ public class ServerApp {
     servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
         photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
-        conFactory, photoBoardDao, lessonDao, photoFileDao));
+        photoBoardDao, lessonDao, photoFileDao));
     servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
-        conFactory, photoBoardDao, photoFileDao));
+        photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
-        conFactory, photoBoardDao, photoFileDao));
+        photoBoardDao, photoFileDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
