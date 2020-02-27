@@ -1,4 +1,4 @@
-ackage com.eomcs.lms.dao;
+package com.eomcs.lms.dao;
 
 import java.util.List;
 import com.eomcs.lms.domain.Board;

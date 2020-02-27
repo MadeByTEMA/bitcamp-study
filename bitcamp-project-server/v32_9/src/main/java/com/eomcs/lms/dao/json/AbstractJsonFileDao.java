@@ -39,7 +39,7 @@ public abstract class AbstractJsonFileDao<T> {
       System.out.println(currType);
 
       // 제네릭 타입의 수퍼 클래스 정보를 알아낸다.
-      Type parentType = this.getGenericSuperclass();
+      Type parentType = currType.getGenericSuperclass();
       System.out.println(parentType);
       
       // 수퍼 클래스의 타입 파라미터 중에서 T 값을 추출한다.

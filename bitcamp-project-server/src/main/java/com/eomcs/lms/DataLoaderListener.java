@@ -17,7 +17,6 @@ public class DataLoaderListener implements ApplicationContextListener {
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
-
     try {
       // DB 연결 정보
       String jdbcUrl = "jdbc:mariadb://localhost:3306/studydb";
