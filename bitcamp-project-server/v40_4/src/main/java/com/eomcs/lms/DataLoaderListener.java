@@ -7,8 +7,8 @@ import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
-import com.eomcs.sql.DataSource;
 import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.util.ConnectionFactory;
 
 // 애플리케이션이 시작되거나 종료될 때
 // 데이터를 로딩하고 저장하는 일을 한다.
@@ -25,19 +25,19 @@ public class DataLoaderListener implements ApplicationContextListener {
       String password = "1111";
 
       // Connection 팩토리 준비
-      DataSource dataSource = new DataSource(//
+      ConnectionFactory conFactory = new ConnectionFactory(//
           jdbcUrl, username, password);
-      context.put("dataSource", dataSource);
+      context.put("connectionFactory", conFactory);
 
       // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
-      context.put("boardDao", new BoardDaoImpl(dataSource));
-      context.put("lessonDao", new LessonDaoImpl(dataSource));
-      context.put("memberDao", new MemberDaoImpl(dataSource));
-      context.put("photoBoardDao", new PhotoBoardDaoImpl(dataSource));
-      context.put("photoFileDao", new PhotoFileDaoImpl(dataSource));
+      context.put("boardDao", new BoardDaoImpl(conFactory));
+      context.put("lessonDao", new LessonDaoImpl(conFactory));
+      context.put("memberDao", new MemberDaoImpl(conFactory));
+      context.put("photoBoardDao", new PhotoBoardDaoImpl(conFactory));
+      context.put("photoFileDao", new PhotoFileDaoImpl(conFactory));
 
       // 트랜잭션 관리자 준비
-      PlatformTransactionManager txManager = new PlatformTransactionManager(dataSource);
+      PlatformTransactionManager txManager = new PlatformTransactionManager(conFactory);
       context.put("transactionManager", txManager);
 
     } catch (Exception e) {
@@ -46,8 +46,5 @@ public class DataLoaderListener implements ApplicationContextListener {
   }
 
   @Override
-  public void contextDestroyed(Map<String, Object> context) {
-    DataSource dataSource = (DataSource) context.get("dataSource");
-
-  }
+  public void contextDestroyed(Map<String, Object> context) {}
 }

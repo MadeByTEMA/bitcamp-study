@@ -8,19 +8,19 @@ import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
-import com.eomcs.sql.DataSource;
+import com.eomcs.util.ConnectionFactory;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
-  DataSource dataSource;
+  ConnectionFactory conFactory;
 
-  public PhotoBoardDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public PhotoBoardDaoImpl(ConnectionFactory conFactory) {
+    this.conFactory = conFactory;
   }
 
   @Override
   public int insert(PhotoBoard photoBoard) throws Exception {
-    try (Connection con = dataSource.getConnection(); //
+    try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate( //
@@ -45,7 +45,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public List<PhotoBoard> findAllByLessonNo(int lessonNo) throws Exception {
-    try (Connection con = dataSource.getConnection(); //
+    try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select photo_id, titl, cdt, vw_cnt, lesson_id" //
@@ -71,7 +71,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public PhotoBoard findByNo(int no) throws Exception {
-    try (Connection con = dataSource.getConnection(); //
+    try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select" //
@@ -111,7 +111,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public int update(PhotoBoard photoBoard) throws Exception {
-    try (Connection con = dataSource.getConnection(); //
+    try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement()) {
       int result = stmt.executeUpdate( //
           "update lms_photo set titl='" //
@@ -123,7 +123,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = dataSource.getConnection(); //
+    try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement()) {
       int result = stmt.executeUpdate( //
           "delete from lms_photo" //
