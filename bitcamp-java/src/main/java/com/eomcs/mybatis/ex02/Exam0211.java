@@ -1,4 +1,4 @@
-// Mybatis - SQL에 파라미터 지정하기 : #{} 의 한계
+// Mybatis - SQL에 파라미터 지정하기: String 값 넘겨주기
 package com.eomcs.mybatis.ex02;
 
 import java.io.InputStream;
@@ -8,26 +8,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0220 {
+public class Exam0211 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
-        "com/eomcs/mybatis/ex02/mybatis-config05.xml");
+        "com/eomcs/mybatis/ex02/mybatis-config04.xml");
     SqlSessionFactory factory = //
         new SqlSessionFactoryBuilder().build(inputStream);
 
     SqlSession sqlSession = factory.openSession();
 
-    // 예) 파라미터로 컬럼 이름을 넘겨주면
-    // 해당 컬럼의 값을 오름차순으로 정렬한다.
+    // SQL을 실행할 때 파라미터 값을 전달하려면
+    // 두 번째 파라미터로 전달해야 한다.
+    // 여러 개의 값을 전달해야 한다면,
+    // Map 객체에 담아 전달하라!
+
+    // 예) 게시글 제목에 ohora 를 포함한 게시글을 찾는다.
     List<Board> list = sqlSession.selectList(//
-        "BoardMapper.selectBoard1", "title");
-    // => 파라미터 값을 SQL에 그대로 삽입하려면
-    // #{} 문법을 사용해서는 안된다.
-    // ${} 문법을 사용해야 한다.
-    // => #{}은 값을 넣을 때 사용한다.
-    // => 현재 selectBoard1에서는 #{}을 사용했기 때문에
-    // order by가 정상적으로 적용되지 못했다.
+        "BoardMapper.selectBoard2", "%ohora%");
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s\n", //

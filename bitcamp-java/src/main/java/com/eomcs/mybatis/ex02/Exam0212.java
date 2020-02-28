@@ -1,33 +1,37 @@
-// Mybatis - SQL에 파라미터 지정하기 : #{} 의 한계
+// Mybatis - SQL에 파라미터 지정하기: Map에 값을 담아 넘기기
 package com.eomcs.mybatis.ex02;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0220 {
+public class Exam0212 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
-        "com/eomcs/mybatis/ex02/mybatis-config05.xml");
+        "com/eomcs/mybatis/ex02/mybatis-config04.xml");
     SqlSessionFactory factory = //
         new SqlSessionFactoryBuilder().build(inputStream);
 
     SqlSession sqlSession = factory.openSession();
 
-    // 예) 파라미터로 컬럼 이름을 넘겨주면
-    // 해당 컬럼의 값을 오름차순으로 정렬한다.
+    // SQL을 실행할 때 파라미터 값을 전달하려면
+    // 두 번째 파라미터로 전달해야 한다.
+    // 여러 개의 값을 전달해야 한다면,
+    // Map 객체에 담아 전달하라!
+    // 또는 도메인 객체(ex: Board, Lesson 등)에 담아 전달하라!
+
+    // 예) 페이징 처리를 위한 시작 인덱스와 개수를 파라미터로 넘겨라.
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("startIndex", 6);
+    params.put("size", 3);
+
     List<Board> list = sqlSession.selectList(//
-        "BoardMapper.selectBoard1", "title");
-    // => 파라미터 값을 SQL에 그대로 삽입하려면
-    // #{} 문법을 사용해서는 안된다.
-    // ${} 문법을 사용해야 한다.
-    // => #{}은 값을 넣을 때 사용한다.
-    // => 현재 selectBoard1에서는 #{}을 사용했기 때문에
-    // order by가 정상적으로 적용되지 못했다.
+        "BoardMapper.selectBoard3", params);
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s\n", //

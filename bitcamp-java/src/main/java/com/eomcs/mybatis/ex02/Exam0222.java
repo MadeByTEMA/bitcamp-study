@@ -1,4 +1,4 @@
-// Mybatis - SQL에 파라미터 지정하기 : #{} 의 한계
+// Mybatis - SQL에 파라미터 지정하기 : ${} 사용의 위험성
 package com.eomcs.mybatis.ex02;
 
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0220 {
+public class Exam0222 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
@@ -18,16 +18,15 @@ public class Exam0220 {
 
     SqlSession sqlSession = factory.openSession();
 
-    // 예) 파라미터로 컬럼 이름을 넘겨주면
-    // 해당 컬럼의 값을 오름차순으로 정렬한다.
+    // mybatis에 SQL문을 만들어 전달할 수 있다.
+    // => SQL Mapper 에서는 ${} 문법으로 SQL 문을 받는다.
+    // => 단, 사용자가 입력한 값을 그대로 전달한다면,
+    // SQL 삽입 공격에 노출될 수 있기 때문에 위험하다.
+    // => 사용자가 입력한 값을 그대로 전달하지 않고,
+    // 개발자가 지정한 값을 전달한다면
+    // 안전하게 사용할 수 있다.
     List<Board> list = sqlSession.selectList(//
-        "BoardMapper.selectBoard1", "title");
-    // => 파라미터 값을 SQL에 그대로 삽입하려면
-    // #{} 문법을 사용해서는 안된다.
-    // ${} 문법을 사용해야 한다.
-    // => #{}은 값을 넣을 때 사용한다.
-    // => 현재 selectBoard1에서는 #{}을 사용했기 때문에
-    // order by가 정상적으로 적용되지 못했다.
+        "BoardMapper.selectBoard3", "where title like '%oh%'");
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s\n", //
