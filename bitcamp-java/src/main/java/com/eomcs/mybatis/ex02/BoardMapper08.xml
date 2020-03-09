@@ -5,12 +5,12 @@
   
 <mapper namespace="BoardMapper">
 
-  <update id="updateBoard" parameterType="Board">
+  <insert id="updateBoard" parameterType="Board">
     update x_board set
       title=#{title},
       contents=#{content}
     where board_id=#{no}
-  </update>  
+  </insert>  
 </mapper>
 
 

@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0110 {
+public class Exam0120 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
@@ -37,10 +37,10 @@ public class Exam0110 {
 
     try {
       // 게시글 번호가 주어지면 해당 게시글만 출력한다.
-      list = sqlSession.selectList("BoardMapper.select1", Integer.parseInt(str));
+      list = sqlSession.selectList("BoardMapper.select3", Integer.parseInt(str));
     } catch (Exception e) {
       // 게시글 번호가 없으면 전체 게시글을 출력한다.
-      list = sqlSession.selectList("BoardMapper.select2");
+      list = sqlSession.selectList("BoardMapper.select3");
     }
 
     for (Board board : list) {

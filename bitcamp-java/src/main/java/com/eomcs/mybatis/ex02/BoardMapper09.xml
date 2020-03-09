@@ -8,7 +8,8 @@
   <delete id="deleteBoard" parameterType="int">
     delete from x_board
     where board_id=#{value}
-  </delete>  
+  </delete>
+  
   <delete id="deleteBoardFile" parameterType="int">
     delete from x_board_file
     where board_id=#{value}

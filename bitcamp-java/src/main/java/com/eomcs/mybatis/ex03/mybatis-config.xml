@@ -22,7 +22,7 @@
   </environments>
   
   <mappers>
-    <mapper resource="com/eomcs/mybatis/ex02/BoardMapper.xml"/>
+    <mapper resource="com/eomcs/mybatis/ex03/BoardMapper.xml"/>
   </mappers>
 </configuration>
 
