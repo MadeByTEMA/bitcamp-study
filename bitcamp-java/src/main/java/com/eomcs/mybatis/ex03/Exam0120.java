@@ -1,4 +1,4 @@
-// dynamic sql 다루기 - 조건문 사용 전
+// dynamic sql 다루기 - 조건문 사용 후
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -39,8 +39,15 @@ public class Exam0120 {
       // 게시글 번호가 주어지면 해당 게시글만 출력한다.
       list = sqlSession.selectList("BoardMapper.select3", Integer.parseInt(str));
     } catch (Exception e) {
-      // 게시글 번호가 없으면 전체 게시글을 출력한다.
+      e.printStackTrace();
+
+      // 게시글 번호가 없거나 예외가 발생하면 전체 게시글을 출력한다.
       list = sqlSession.selectList("BoardMapper.select3");
+
+      // 이때 같은 SQL 문(select3)을 실행한다.
+      // => Mapper 파일에서 조건으로 SQL을 제어한다.
+      // => 조건에 따라 여러 개의 SQL을 생성할 필요가 없어 편리하다.
+      // => 다만 SQL 문을 작성하는데 복잡하다.
     }
 
     for (Board board : list) {
