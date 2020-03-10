@@ -1,4 +1,4 @@
-// dynamic sql 다루기 - 조건문 사용 II
+// dynamic sql 다루기 - <bind> 사용법
 package com.eomcs.mybatis.ex03;
 
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Exam0130 {
+public class Exam0280 {
 
   public static void main(String[] args) throws Exception {
     InputStream inputStream = Resources.getResourceAsStream(//
@@ -21,26 +21,23 @@ public class Exam0130 {
     SqlSession sqlSession = factory.openSession();
 
     // 실행 예:
-    // => 사용자로부터 검색 키워드를 입력 받아 조회한다.
-    // => 제목, 내용, 번호로 검색하기
+    // => 게시물 번호를 여러 개 지정하여 조회하기
+    //
+
+    HashMap<String, Object> params = new HashMap<>();
 
     Scanner keyScan = new Scanner(System.in);
 
-    System.out.print("항목(1:번호, 2:제목, 3: 내용, 그 외: 전체)? ");
-    String item = keyScan.nextLine();
-
-    System.out.print("검색어? ");
-    String keyword = keyScan.nextLine();
+    System.out.print("제목? ");
+    String value = keyScan.nextLine();
+    params.put("title", value);
 
     keyScan.close();
 
-    // SQL 매퍼에 여러 개의 파라미터 값을 넘길 때 주로 Map을 사용한다.
-    HashMap<String, Object> params = new HashMap<>();
-    params.put("item", item);
-    params.put("keyword", keyword);
+    List<Board> list = sqlSession.selectList("BoardMapper.select26", params);
+    // <bind> 태그를 사용하면
+    // => like 문의 문자열 패턴을 만들 때 편하다.
 
-    List<Board> list = sqlSession.selectList("BoardMapper.select4", //
-        params);
 
     for (Board board : list) {
       System.out.printf("%d, %s, %s, %s, %d\n", //
@@ -50,7 +47,6 @@ public class Exam0130 {
           board.getRegisteredDate(), //
           board.getViewCount());
     }
-
     sqlSession.close();
   }
 
