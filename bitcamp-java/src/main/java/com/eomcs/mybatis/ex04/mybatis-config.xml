@@ -7,6 +7,7 @@
 
   <typeAliases>
     <typeAlias type="com.eomcs.mybatis.ex04.Board" alias="Board"/>
+    <typeAlias type="com.eomcs.mybatis.ex04.AttachFile" alias="AttachFile"/>
   </typeAliases>
 
   <environments default="development">
@@ -23,6 +24,7 @@
   
   <mappers>
     <mapper resource="com/eomcs/mybatis/ex04/BoardMapper.xml"/>
+    <mapper resource="com/eomcs/mybatis/ex04/BoardMapper2.xml"/>
   </mappers>
 </configuration>
 
