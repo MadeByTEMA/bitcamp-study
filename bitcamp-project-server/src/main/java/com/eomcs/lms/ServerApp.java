@@ -14,11 +14,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
-import com.eomcs.lms.dao.PhotoBoardDao;
-import com.eomcs.lms.dao.PhotoFileDao;
+import com.eomcs.lms.service.BoardService;
+import com.eomcs.lms.service.LessonService;
+import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.lms.servlet.BoardAddServlet;
 import com.eomcs.lms.servlet.BoardDeleteServlet;
 import com.eomcs.lms.servlet.BoardDetailServlet;
@@ -28,6 +28,7 @@ import com.eomcs.lms.servlet.LessonAddServlet;
 import com.eomcs.lms.servlet.LessonDeleteServlet;
 import com.eomcs.lms.servlet.LessonDetailServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
+import com.eomcs.lms.servlet.LessonSearchServlet;
 import com.eomcs.lms.servlet.LessonUpdateServlet;
 import com.eomcs.lms.servlet.LoginServlet;
 import com.eomcs.lms.servlet.MemberAddServlet;
@@ -42,7 +43,6 @@ import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
 import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
-import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.sql.SqlSessionFactoryProxy;
 
 public class ServerApp {
@@ -89,29 +89,31 @@ public class ServerApp {
     SqlSessionFactory sqlSessionFactory = //
         (SqlSessionFactory) context.get("sqlSessionFactory");
 
+    // DataLoaderListener가 준비한 서비스 객체를 꺼내 변수에 저장한다.
+    LessonService lessonService = //
+        (LessonService) context.get("lessonService");
+    PhotoBoardService photoBoardService = //
+        (PhotoBoardService) context.get("photoBoardService");
+    BoardService boardService = //
+        (BoardService) context.get("boardService");
+
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
-    BoardDao boardDao = (BoardDao) context.get("boardDao");
     LessonDao lessonDao = (LessonDao) context.get("lessonDao");
     MemberDao memberDao = (MemberDao) context.get("memberDao");
-    PhotoBoardDao photoBoardDao = (PhotoBoardDao) context.get("photoBoardDao");
-    PhotoFileDao photoFileDao = (PhotoFileDao) context.get("photoFileDao");
-
-    // 트랜잭션 관리자를 꺼내 변수에 저장한다.
-    PlatformTransactionManager txManager = //
-        (PlatformTransactionManager) context.get("transactionManager");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
-    servletMap.put("/board/list", new BoardListServlet(boardDao));
-    servletMap.put("/board/add", new BoardAddServlet(boardDao));
-    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
-    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
-    servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
+    servletMap.put("/board/list", new BoardListServlet(boardService));
+    servletMap.put("/board/add", new BoardAddServlet(boardService));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardService));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardService));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boardService));
 
     servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
     servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));
     servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
     servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
     servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
+    servletMap.put("/lesson/search", new LessonSearchServlet(lessonDao));
 
     servletMap.put("/member/list", new MemberListServlet(memberDao));
     servletMap.put("/member/add", new MemberAddServlet(memberDao));
@@ -120,16 +122,16 @@ public class ServerApp {
     servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
     servletMap.put("/member/search", new MemberSearchServlet(memberDao));
 
-    servletMap.put("/photoboard/list", new PhotoBoardListServlet( //
-        photoBoardDao, lessonDao));
-    servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
-        photoBoardDao));
-    servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
-        txManager, photoBoardDao, lessonDao, photoFileDao));
-    servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
-        txManager, photoBoardDao, photoFileDao));
-    servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
-        txManager, photoBoardDao, photoFileDao));
+    servletMap.put("/photoboard/list", //
+        new PhotoBoardListServlet(photoBoardService, lessonService));
+    servletMap.put("/photoboard/detail", //
+        new PhotoBoardDetailServlet(photoBoardService));
+    servletMap.put("/photoboard/add", //
+        new PhotoBoardAddServlet(photoBoardService, lessonService));
+    servletMap.put("/photoboard/update", //
+        new PhotoBoardUpdateServlet(photoBoardService));
+    servletMap.put("/photoboard/delete", //
+        new PhotoBoardDeleteServlet(photoBoardService));
 
     servletMap.put("/auth/login", new LoginServlet(memberDao));
 
