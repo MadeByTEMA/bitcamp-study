@@ -1,42 +1,81 @@
-# 45_1 - Java Proxy를 이용하여 DAO 구현체 자동 생성하기
+# 46_1 - 객체 생성을 자동화하는 IoC 컨테이너 만들기
+
+새 명령을 추가할 때마다 그 명령을 처리할 서블릿 객체를 생성하고 등록해야 한다.
+또한 데이터를 다루는 DAO와 비즈니스 로직 및 트랜잭션을 관리하는 
+서비스 객체를 생성하고 등록해야 한다.
+이를 자동화할 수 있다면, 
+새 명령을 추가하거나 새 클래스를 만들 때 마다 
+직접 코드를 추가할 필요가 없을 것이다.
+객체 생성 및 등록을 자동화하는 객체를 IoC 컨테이너라 한다.
+이번 버전의 목표는 바로 이 IoC 컨테이너를 만드는 것이다.
 
 ## 학습목표
 
-- Java Proxy의 구동 원리를 이해한다.
-- Java Proxy를 이용하여 인터페이스 구현체를 자동으로 생성할 수 있다.
+- IoC 컨테이너의 개념과 구동 원리를 이해한다.
+- 리플랙션 API를 활용하여 클래스를 정보를 다루고 객체를 생성할 수 있다.
+
+### IoC(Inversion Of Control)
+
+- 보통 '제어의 역전'이라 해석한다.
+- 예1) 의존 객체 생성
+  - 보통의 실행 흐름은 객체를 사용하는 쪽에서 그 객체를 만드는 것이다.
+    - 쌀을 이용할 사람들이 쌀 농사를 짓는다.
+    - 옷을 사용할 사람들이 옷을 만든다.
+    - 그런데 시스템 구조가 복잡해지면 이렇게 직접 객체를 만드는 방식이 비효율적이 된다.
+  - 시스템 구조가 복잡할 경우에는 사용할 객체를 외부에서 주입받는 것이 유지보수에 좋다.
+    - 쌀이 필요하다면 외부에서 쌀을 주입받는다.
+    - 옷이 필요하다면 외부에서 옷을 주입받는다.
+  - 이렇게 객체를 외부에서 주입하는 것은 보통의 실행 흐름을 역행하는 것이다.
+  - 이런 흐름의 역행을 'IoC' 라고 부른다.
+- 예2) 메서드 호출
+  - 보통 메서드를 만들면 실행 흐름에 따라 호출한다.
+    - 메서드를 호출하고, 실행이 끝나면 리턴한다.
+  - 그런데 실행 계획에 따라 호출하는 것이 아니라, 
+    특정 상태에 있을 때 자동으로 호출되게 하는 경우도 필요하다.
+    - 시스템이 시작될 때 특정 메서드를 자동으로 호출되게 하는 것.
+    - 사용자가 마우스를 클릭했을 때 특정 메서드를 자동으로 호출되게 하는 것.
+  - 즉 개발자가 작성한 코드 흐름에 따라 호출하는 것이 아니라,
+    특정 상태에 놓여졌을 때 뒤에서 자동으로 호출하는 방식이 필요할 때가 있다.
+  - 보통 이런 메서드를 '이벤트 핸들러', '이벤트 리스너'라 부른다.
+  - 또는 시스템 쪽에서 호출하는 메서드라는 의미로 '콜백(callback) 메서드'라고 부르기도 한다.
+  - 이런 호출 방식도 IoC의 한 예이다.
+
+### IoC 컨테이너
+
+- 개발자가 직접 객체를 생성하는 것이 아니다.
+- 객체 생성을 전담하는 역할자를 통해 객체가 준비된다.
+- 이 역할자를 '빈 컨테이너(bean container)'라고 부른다.
+- 여기에 객체가 사용할 의존 객체를 자동으로 주입하는 역할을 추가한다.
+- 즉 객체 스스로 자신이 사용할 객체를 만드는 것이 아니라,
+  외부의 빈 컨테이너로부터 의존 객체를 주입받는 것이다.
+- 이런 역할까지 겸하는 것을 'IoC 컨테이너'라 부른다.
+- IoC 컨테이너 = 빈 컨테이너 + 의존 객체 주입
+- 대표적인 제품?
+  - Spring IoC 컨테이너
+
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao 에서 인터페이스 구현 클래스를 모두 삭제
-- src/main/resources/com/eomcs/lms/mapper/XxxMapper.xml 변경
-- src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
-- src/main/java/com/eomcs/lms/service/impl/MemberServiceImpl.java 변경
-- src/main/java/com/eomcs/sql/MybatisDaoFactory.java 추가
+- src/main/java/com/eomcs/lms/service/impl/BoardServiceImpl2.java 추가
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
 
 ## 실습  
 
-### 훈련1: InvocationHandler에서 SQL을 찾기 쉽도록 DAO 인터페이스 메서드명과 SQL ID를 일치시킨다.
+### 훈련1: IoC 컨테이너 클래스를 준비한다.(ApplicationContext01)
 
-- src/main/resources/com/eomcs/lms/mapper/XxxMapper.xml 변경
-  - namespace 값을 인터페이스 전체 이름(fully-qualified name)과 일치시킨다.
-  - 메서드에서 사용할 SQL은 메서드 이름과 일치시킨다.
-- com.eomcs.lms.dao.MemberDao 변경
-  - findByEmailAndPassword()의 파라미터를 Map 타입으로 변경한다.
-- com.eomcs.lms.service.impl.MemberServiceImpl 변경
-  - findByEmailAndPassword()를 호출할 때 파라미터를 Map에 담아 넘긴다. 
+- com.eomcs.util.ApplicationContext 클래스 생성
 
-### 훈련2: 복잡한 DAO 생성을 단순화시키는 팩토리 클래스를 정의한다.
+### 훈련2: 특정 패키지에 소속된 클래스 이름을 수집한다.(ApplicationContext02)
 
-- com.eomcs.sql.MybatisDaoFactory 클래스 추가
-  - DAO 프록시 객체를 생성하는 팩토리 메서드 createDao()를 정의한다.
-  - 인터페이스에 따라 리턴 타입을 다르도록 제네릭을 적용한다.
-  - InvocationHandler 구현체를 람다 문법을 사용하여 로컬 클래스로 정의한다. 
-
-### 훈련3: DAO 객체 생성에 프록시 생성기를 적용한다.
-
-- com.eomcs.lms.dao.* 에서 DAO 구현체 모두 제거
-- com.eomcs.lms.DataLoaderListener 변경
-  - MybatisDaoFactory를 이용하여 DAO 구현 객체 생성한다.
-
-
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 패키지명을 입력받아서 해당 패키지를 뒤져 모든 클래스의 이름을 가져온다.
+- com.eomcs.lms.DataLoaderListener 의 이름 변경
+  - 이제 이 클래스는 데이터를 저장하고 로딩하는 역할을 넘어섰다.
+  - 애플리케이션을 실행할 때 사용할 객체나 환경을 준비하는 일을 한다.
+  - 그래서 이름을 그에 걸맞게 'ContextLoaderListener'라 변경한다.
+- com.eomcs.lms.ContextLoaderListener 변경
+  - ApplicationContext 객체를 생성하여 맵에 보관한다.
+  
+  
+  
+  
