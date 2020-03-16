@@ -76,6 +76,21 @@
 - com.eomcs.lms.ContextLoaderListener 변경
   - ApplicationContext 객체를 생성하여 맵에 보관한다.
   
+### 훈련3: 객체를 생성할 수 있는 concrete class 만 추출한다.(ApplicationContext03)
   
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - reflection API를 사용하여 인터페이스와 추상클래스 등을 구분한다.
   
+### 훈련4: concrete class의 생성자 정보를 알아낸다.(ApplicationContext04)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - reflection API를 사용하여 클래스의 생성자를 알아낸다.
+  - 생성자의 파라미터 정보를 알아낸다.
+  
+### 훈련5: concrete class의 생성자를 호출하여 객체를 준비한다.(ApplicationContext05)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - reflection API를 사용하여 생성자의 파라미터 정보를 알아낸다.
+  - 파라미터 객체를 준비하여 생성자를 호출한다.
+  - 생성된 객체를 객체 보관소(objPool)에 저장한다.
   
