@@ -7,7 +7,9 @@
 ## 실습 소스 및 결과
 
 - src/main/java/com/eomcs/lms/AppConfig.java 변경
-- src/main/java/com/eomcs/lms/ServerApp.java 변경
+- src/main/java/com/eomcs/lms/DatabaseConfig.java 추가
+- src/main/java/com/eomcs/lms/MybatisConfig.java 추가
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
 
 ## 실습  
 
@@ -28,4 +30,11 @@
 - com.eomcs.lms.ContextLoaderListener 변경
   - Spring IoC 컨테이너 생성 코드를 변경한다.
   
-### 훈련4: 
+### 훈련4: @Configuration 애노테이션을 사용하여 Java Config 를 설정한다.
+
+- com.eomcs.lms.DatabaseConfig 변경
+  - @Configuration 애노테이션을 붙인다.
+- com.eomcs.lms.MybatisConfig 변경
+  - @Configuration 애노테이션을 붙인다.
+- com.eomcs.lms.ContextLoaderListener 변경
+  - Spring IoC 컨테이너를 생성할 때 Java Config로 AppConfig 만 지정한다.
