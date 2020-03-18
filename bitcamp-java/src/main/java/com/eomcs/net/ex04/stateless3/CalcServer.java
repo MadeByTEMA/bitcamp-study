@@ -1,4 +1,4 @@
-// stateless 방식에서 클라이언트를 구분하고 작업 결과를 유지하는 방법
+// stateless 에서 다중 클라이언트 요청 처리하기
 package com.eomcs.net.ex04.stateless3;
 
 import java.io.DataInputStream;
@@ -11,6 +11,12 @@ import java.util.Map;
 
 public class CalcServer {
 
+  // 각 클라이언트의 작업 결과를 보관할 맵 객체
+  // => Map<clientID, result>
+  static Map<Long, Integer> resultMap = new HashMap<>();
+
+
+  // 클라이언트와 대화하는 부분을 별도의 코드로 분리하여 실행한다.
   static class RequestHandler extends Thread {
 
     Socket socket;
@@ -21,19 +27,17 @@ public class CalcServer {
 
     @Override
     public void run() {
+      // JVM과 별개로 실행해야 하는 코드를 이 메서드에 둔다.
       try {
         processRequest(socket);
       } catch (Exception e) {
         System.out.println("클라이언트 요청 처리 중 오류 발생!");
       } finally {
-        System.out.println("다음 클라이언트의 요청을 처리합니다.");
+        System.out.println("클라이언트 연결 종료!");
       }
     }
   }
 
-  // 각 클라이언트의 작업 결과를 보관할 맵 객체
-  // => Map<clientID, result>
-  static Map<Long, Integer> resultMap = new HashMap<>();
 
   public static void main(String[] args) throws Exception {
     System.out.println("서버 실행 중...");
@@ -41,15 +45,21 @@ public class CalcServer {
     ServerSocket ss = new ServerSocket(8888);
 
     while (true) {
-      System.out.println("클라이언트 요청 처리!");
+      System.out.println("클라이언트의 연결을 기다림!");
       Socket socket = ss.accept();
       InetSocketAddress remoteAddr = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("클라이언트(%s:%d)가 연결되었음! \n", remoteAddr.getAddress(), remoteAddr.getPort());
+      System.out.printf("클라이언트(%s:%d)가 연결되었음!\n", //
+          remoteAddr.getAddress(), remoteAddr.getPort());
 
+      // 독립적으로 수행할 코드를 갖고 있는 스레드 객체를 생성한다.
       RequestHandler requestHandler = new RequestHandler(socket);
 
+      // 그리고 작업을 실행시킨다.
+      // => 스레드를 실행시킨 후 바로 리턴한다.
       requestHandler.start();
-      System.out.printf("%s 클라이언트 요청을 스레드에게 맡겼습니다. \n", remoteAddr.getAddress());
+      System.out.printf("%s 클라이언트 요청을 스레드에게 맡겼습니다!\n", //
+          remoteAddr.getAddress());
+
     }
     // ss.close();
   }
