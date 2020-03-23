@@ -8,19 +8,17 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
     
-    <context:component-scan base-package="com.eomcs.spring.ioc.ex12.c"></context:component-scan>
+    <context:component-scan base-package="com.eomcs.spring.ioc.ex12.c"/>
 
 <!-- Mybatis SqlSessionFactory 준비하기 
-=> 보통 클래스 이름이 XxxFactoryBean 이라면
-  생성되는 객체는 Xxx이다.
-  => 그런데 sqlSessionFactoryBean 클래스가 생성하는 객체는
-    SqlSession이 아니라 SqlSessionFactory이다.
-    => 왜?
-    SqlSessionFactory 객체를 만드는 클래스는 이름을
-    SqlSessionFactoryFactoryBean이라고 짓는 것이 일반적인데,
-    Mybatis 개발자는 이름 중간에 Factory가 두 번 들어가는 것이 싫었나 보다.
-
-
+  => 보통 클래스 이름이 XxxFactoryBean 이라면 
+     생성되는 객체는 Xxx 이다.
+  => 그런데 SqlSessionFactoryBean 클래스가 생성하는 객체는 
+     SqlSession 이 아니라 SqlSessionFactory 이다.
+  => 왜?
+     SqlSessionFactory 객체를 만드는 클래스는 
+     이름을 SqlSessionFactoryFactoryBean 이라고 짓는 것이 일반적인데,
+     Mybatis 개발자는 이름 중간에 Factory가 두 번 들어가는 것이 싫었던 가보다.
 -->
     <bean id="sqlSessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -40,7 +38,8 @@
            => 패키지를 지정하면 그 패키지에 있는 모든 클래스에 대해 
               클래스 이름을 별명으로 자동 부여한다. 
             -->
-      <property name="typeAliases" value="com.eomcs.spring.ioc.ex12.Board"/>   
+      <property name="typeAliases" 
+                value="com.eomcs.spring.ioc.ex12.Board"/>   
     </bean>
     
 <!-- mybatis가 사용할 DataSource 객체 준비하기 

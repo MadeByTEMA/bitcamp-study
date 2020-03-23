@@ -2,10 +2,8 @@
 package com.eomcs.spring.ioc.ex12.c;
 
 import java.util.List;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.eomcs.spring.ioc.SpringUtils;
 import com.eomcs.spring.ioc.ex12.Board;
 
@@ -20,9 +18,11 @@ public class Exam01 {
     // 3) "gradle eclipse" 실행
     // 4) 이클립스 프로젝트 갱신
     // 5) 이 라이브러리에서 제공하는 FactoryBean 사용!
-
-    // 만약 apache commons-dbcp 라이브러리가 없다면 추가해야된다.
-    ApplicationContext iocContainer = new ClassPathXmlApplicationContext(
+    //
+    // 만약 apache 'commons-dbcp' 라이브러리가 없다면 추가해야 한다.
+    // DB 커넥션 풀을 사용하려면 'spring-jdbc' 라이브러리를 추가해야 한다.
+    //
+    ApplicationContext iocContainer = new ClassPathXmlApplicationContext(//
         "com/eomcs/spring/ioc/ex12/c/application-context.xml");
 
     SpringUtils.printBeanNames(iocContainer);
@@ -43,3 +43,5 @@ public class Exam01 {
   }
 
 }
+
+

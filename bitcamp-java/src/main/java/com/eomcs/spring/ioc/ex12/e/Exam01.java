@@ -1,21 +1,21 @@
 // Spring과 Mybatis 연동 : mybatis가 구현한 DAO 객체 사용하기
-package com.eomcs.spring.ioc.ex12.d;
+package com.eomcs.spring.ioc.ex12.e;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.eomcs.spring.ioc.SpringUtils;
 
 public class Exam01 {
 
   public static void main(String[] args) {
-    ApplicationContext iocContainer = new ClassPathXmlApplicationContext(//
-        "com/eomcs/spring/ioc/ex12/d/application-context2.xml");
+    ApplicationContext iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
 
     SpringUtils.printBeanList(iocContainer);
 
     // BoardDao boardDao = iocContainer.getBean(BoardDao.class);
     //
-    // //1) 게시물 입력
+    // 1) 게시물 입력
     // Board board = new Board();
     // board.setTitle("제목입니다.");
     // board.setContent("내용입니다.");
@@ -38,5 +38,3 @@ public class Exam01 {
   }
 
 }
-
-
