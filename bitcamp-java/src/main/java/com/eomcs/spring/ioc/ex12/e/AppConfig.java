@@ -1,7 +1,6 @@
 package com.eomcs.spring.ioc.ex12.e;
 
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-
 import com.eomcs.spring.ioc.ex12.Board;
 
 @PropertySource("classpath:com/eomcs/spring/ioc/ex12/jdbc.properties")
@@ -44,26 +42,24 @@ public class AppConfig {
   }
 
   @Bean
-  public PlatformTransactionManager transactionManager(
-      // 필요한 값이 있다면 이렇게 파라미터로 선언만 하라.
-      // 단 IoC 컨테이너에 들어 있는 값이어야 한다.
+  public PlatformTransactionManager transactionManager(//
       DataSource dataSource) {
     return new DataSourceTransactionManager(dataSource);
   }
 
   @Bean
-  public SqlSessionFactory sqlSessionFactory(DataSource dataSource, // DB 커넥션풀
+  public SqlSessionFactory sqlSessionFactory(//
+      DataSource dataSource, // DB 커넥션풀
       ApplicationContext appCtx // Spring IoC 컨테이너
   ) throws Exception {
-    // Spring IoC 컨테이너 용으로 mybatis 측에서 따로 제작한
-    // SqlSessionFactory 이다.
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
     sqlSessionFactoryBean.setDataSource(dataSource);
     // sqlSessionFactoryBean.setTypeAliasesPackage("com.eomcs.spring.ioc.ex12");
     sqlSessionFactoryBean.setTypeAliases(Board.class);
     sqlSessionFactoryBean.setMapperLocations(//
-        // Spring IoC 컨테이너를 통해 SQL 맵퍼 파일의 위치 정보를 가져온다.
         appCtx.getResources("classpath:com/eomcs/spring/ioc/ex12/e/*Mapper.xml"));
     return sqlSessionFactoryBean.getObject();
   }
 }
+
+
