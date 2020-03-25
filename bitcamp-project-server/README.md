@@ -1,17 +1,24 @@
-# 54_1 - HTTP 프로토콜 적용하기
+# 54_2 - 출력 콘텐트에 HTML 형식 적용하기
 
 ## 학습목표
 
-- HTTP 프로토콜의 통신 규칙을 이해한다.
-- HTTP 프로토콜에 따라 요청과 응답을 할 수 있다.
+- HTML 태그를 사용할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/ServerApp.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardListServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberListServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonListServlet.java 변경
 
 ## 실습  
 
-### 훈련1: HTTP 프로토콜에 따라 클라이언트 요청을 처리한다.
+### 훈련1: 게시글 목록을 출력할 때 HTML 형식으로 콘텐트를 출력한다.
 
-- com.eomcs.lms.ServerApp 변경
+- com.eomcs.lms.servlet.BoardListServlet 변경
+
+### 훈련2: 웹브라우저에게 데이터 입력을 요구한다.
+
+- com.eomcs.lms.servlet.BoardAddServlet 변경
+  - 웹브라우저에게 게시물 데이터 입력을 요구하는 HTML을 보낸다.
+
 
