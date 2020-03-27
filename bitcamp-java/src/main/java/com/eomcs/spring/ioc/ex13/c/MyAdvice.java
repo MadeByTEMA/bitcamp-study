@@ -3,8 +3,6 @@ package com.eomcs.spring.ioc.ex13.c;
 
 public class MyAdvice {
 
-  static int a = 0;
-
   public void doBefore() {
     System.out.println("MyAdvice.doBefore()");
   }
@@ -25,3 +23,13 @@ public class MyAdvice {
     System.out.println("MyAdvice.doAround()");
   }
 }
+
+
+
+
+
+
+
+
+
+

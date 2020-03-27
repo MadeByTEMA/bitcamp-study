@@ -2,23 +2,18 @@
 package com.eomcs.spring.ioc.ex13.e;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.eomcs.spring.ioc.SpringUtils;
 
 public class Exam01 {
 
   public static void main(String[] args) {
-    ClassPathXmlApplicationContext iocContainer = 
-        new ClassPathXmlApplicationContext(
-            "bitcamp/java106/step13/ex5/application-context-01.xml");
+    ClassPathXmlApplicationContext iocContainer = new ClassPathXmlApplicationContext(//
+        "com/eomcs/spring/ioc/ex13/e/application-context.xml");
 
-    String[] names = iocContainer.getBeanDefinitionNames();
-    System.out.println("---------------------------------------");
-    for (String name : names) {
-      System.out.println(iocContainer.getBean(name).getClass().getName());
-    }
-    System.out.println("---------------------------------------");
+    SpringUtils.printBeanList(iocContainer);
 
     try {
-      Caller caller = (Caller) iocContainer.getBean(Caller.class);
+      Caller caller = iocContainer.getBean(Caller.class);
       caller.test();
     } catch (Exception e) {
       System.err.println("오류 발생!");
@@ -26,6 +21,5 @@ public class Exam01 {
   }
 
 }
-
 
 

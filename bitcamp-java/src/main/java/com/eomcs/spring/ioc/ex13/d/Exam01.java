@@ -2,19 +2,15 @@
 package com.eomcs.spring.ioc.ex13.d;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.eomcs.spring.ioc.SpringUtils;
 
 public class Exam01 {
 
   public static void main(String[] args) {
     ClassPathXmlApplicationContext iocContainer = new ClassPathXmlApplicationContext(//
-        "com/eomcs/spring/ioc/c/application-context.xml");
+        "com/eomcs/spring/ioc/ex13/d/application-context.xml");
 
-    String[] names = iocContainer.getBeanDefinitionNames();
-    System.out.println("---------------------------------------");
-    for (String name : names) {
-      System.out.println(iocContainer.getBean(name).getClass().getName());
-    }
-    System.out.println("---------------------------------------");
+    SpringUtils.printBeanList(iocContainer);
 
     try {
       Caller caller = iocContainer.getBean(Caller.class);

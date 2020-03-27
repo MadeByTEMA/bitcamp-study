@@ -2,7 +2,6 @@
 package com.eomcs.spring.ioc.ex13.c;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.eomcs.spring.ioc.SpringUtils;
 
 public class Exam01 {
@@ -12,6 +11,7 @@ public class Exam01 {
         "com/eomcs/spring/ioc/ex13/c/application-context.xml");
 
     SpringUtils.printBeanList(iocContainer);
+
     try {
       Caller caller = iocContainer.getBean(Caller.class);
       caller.test();
@@ -51,3 +51,5 @@ public class Exam01 {
   }
 
 }
+
+
