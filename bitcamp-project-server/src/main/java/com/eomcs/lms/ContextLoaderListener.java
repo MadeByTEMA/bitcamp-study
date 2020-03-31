@@ -2,26 +2,33 @@ package com.eomcs.lms;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import com.eomcs.lms.context.ApplicationContextListener;
+
 import com.eomcs.util.RequestHandler;
 import com.eomcs.util.RequestMapping;
 import com.eomcs.util.RequestMappingHandlerMapping;
 
-// 애플리케이션이 시작되거나 종료될 때
-// 데이터를 로딩하고 저장하는 일을 한다.
-//
-public class ContextLoaderListener implements ApplicationContextListener {
+// 서블릿 컨테이너가 시작되거나 종료할 때
+// 이 클래스의 객체에 대해 메서드를 호출한다.
+// 즉 이 클래스는 서블릿 컨테이너의 시작과 종료에 대해
+// 알림을 받는
+public class ContextLoaderListener implements ServletContextListener {
 
   static Logger logger = LogManager.getLogger(ContextLoaderListener.class);
 
   @Override
-  public void contextInitialized(Map<String, Object> context) {
-
+  public void contextInitialized(ServletContextEvent sce) {
+    // TODO Auto-generated method stub
+    ServletContext servletContext = sce.getServletContext();
     try {
       // Spring IoC 컨테이너 준비
       ApplicationContext appCtx = new AnnotationConfigApplicationContext(//
@@ -30,7 +37,7 @@ public class ContextLoaderListener implements ApplicationContextListener {
       printBeans(appCtx);
 
       // ServerApp이 사용할 수 있게 context 맵에 담아 둔다.
-      context.put("iocContainer", appCtx);
+      servletContext.setAttribute("iocContainer", appCtx);
 
       logger.debug("----------------------------");
 
@@ -88,6 +95,7 @@ public class ContextLoaderListener implements ApplicationContextListener {
   }
 
   @Override
-  public void contextDestroyed(Map<String, Object> context) {}
+  public void contextDestroyed(Map<String, Object> context) {
+  }
 
 }
