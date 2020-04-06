@@ -3,7 +3,6 @@ package com.eomcs.web.ex03;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -16,7 +15,8 @@ public class Servlet03 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // HTML 출력할 때 MIME 타입에 HTML을 지정하지 않으면
     // 웹 브라우저는 일반 텍스트로 간주하여 출력한다.
@@ -30,3 +30,5 @@ public class Servlet03 extends GenericServlet {
     out.println("</html>");
   }
 }
+
+

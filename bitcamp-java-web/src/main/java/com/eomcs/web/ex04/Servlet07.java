@@ -3,7 +3,6 @@ package com.eomcs.web.ex04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -16,7 +15,8 @@ public class Servlet07 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     req.setCharacterEncoding("UTF-8");
 
@@ -42,3 +42,5 @@ public class Servlet07 extends GenericServlet {
     out.printf("c = %s\n", req.getParameter("c"));
   }
 }
+
+

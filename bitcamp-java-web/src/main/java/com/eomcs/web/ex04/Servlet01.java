@@ -3,7 +3,6 @@ package com.eomcs.web.ex04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -16,7 +15,8 @@ public class Servlet01 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // GET 요청
     // - 웹 브라우저에 URL을 입력한 후 엔터를 치면 GET 요청을 보낸다.
@@ -31,14 +31,35 @@ public class Servlet01 extends GenericServlet {
     // ServletRequest.getParameter("파라미터이름")
     //
     String name = req.getParameter("name");
-    int age = Integer.parseInt(req.getParameter("age"));
+    String age = req.getParameter("age");
 
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();
     out.printf("이름=%s\n", name);
-    out.printf("나이=%d\n", age);
+    out.printf("나이=%s\n", age);
   }
 }
+
+// 웹브라우저에서 웹서버의 자원을 요청하는 방법
+// 1) 서블릿 클래스를 실행하고 싶을 때
+// => 서블릿 클래스의 실제 위치:
+// 톰캣배치폴더/wtpwebapps/eomcs-java-web/WEB-INF/classes/com/eomcs/web/ex04/Servlet01.class
+// => 요청:
+// 해당 서블릿을 서버에 등록할 때 사용한 URL을 지정해야 한다.
+// http://localhost:9999/eomcs-java-web/ex04/s1
+//
+// 2) HTML, CSS, JavaScript, JPEG 등 정적 파일을 받고 싶을 때
+// => 정적 파일의 실제 위치:
+// 톰캣배치폴더/wtpwebapps/eomcs-java-web/ex04/test01.html
+// => 요청:
+// http://localhost:9999/eomcs-java-web/ex04/test01.html
+//
+// 3) /WEB-INF/ 폴더에 있는 정적 파일을 받고 싶을 때
+// => 정적 파일의 실제 위치:
+// 톰캣배치폴더/wtpwebapps/eomcs-java-web/WEB-INF/ex04/test01.html
+// => 요청:
+// /WEB-INF 폴더 아래에 있는 파일은 클라이언트에서 요청할 수 없다!
+// 웹 애플리케이션의 정보를 두는 폴더이기 때문이다.
 
 // HTTP 요청 형식
 // method sp request-URI sp http_version CRLF
@@ -83,14 +104,12 @@ public class Servlet01 extends GenericServlet {
 //
 // => 예)
 /*
- * GET /java-web/ex04/s1?name=%ED%99%8D%EA%B8%B8%EB%8F%99&age=20 HTTP/1.1 Host:
- * localhost:8080 Connection: keep-alive Pragma: no-cache Cache-Control:
- * no-cache Upgrade-Insecure-Requests: 1 User-Agent: Mozilla/5.0 (Macintosh;
- * Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko)
- * Chrome/73.0.3683.86 Safari/537.36 Accept:
- * text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,
- * Accept-Encoding: gzip, deflate, br Accept-Language:
- * ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6 빈 줄
+ * GET /java-web/ex04/s1?name=%ED%99%8D%EA%B8%B8%EB%8F%99&age=20 HTTP/1.1 Host: localhost:8080
+ * Connection: keep-alive Pragma: no-cache Cache-Control: no-cache Upgrade-Insecure-Requests: 1
+ * User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like
+ * Gecko) Chrome/73.0.3683.86 Safari/537.36 Accept:
+ * text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng, Accept-Encoding:
+ * gzip, deflate, br Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6 빈 줄
  */
 
 // HTTP 응답 프로토콜
@@ -102,8 +121,8 @@ public class Servlet01 extends GenericServlet {
 //
 // => 예:
 /*
- * HTTP/1.1 200 OK Content-Type: text/plain;charset=UTF-8 Content-Length: 27
- * Date: Thu, 28 Mar 2019 05:46:08 GMT CRLF 이름=홍길동 나이=20
+ * HTTP/1.1 200 OK Content-Type: text/plain;charset=UTF-8 Content-Length: 27 Date: Thu, 28 Mar 2019
+ * 05:46:08 GMT CRLF 이름=홍길동 나이=20
  */
 
 // URI (Uniform Resource Identifier)
@@ -117,3 +136,5 @@ public class Servlet01 extends GenericServlet {
 // <URN> ::= "urn:" <NID> ":" <NSS>
 // 예) urn:lex:eu:council:directive:2010-03-09;2010-19-UE
 //
+
+

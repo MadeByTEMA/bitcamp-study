@@ -2,7 +2,6 @@
 package com.eomcs.web.ex02;
 
 import java.io.IOException;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -15,7 +14,10 @@ public class Servlet02 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
     System.out.println("/ex02/a/s2 서블릿 실행!");
   }
 }
+
+

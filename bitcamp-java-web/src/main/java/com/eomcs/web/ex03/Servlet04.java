@@ -4,7 +4,6 @@ package com.eomcs.web.ex03;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,7 +17,8 @@ public class Servlet04 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // /WEB-INF/photo.jpeg 파일의 실제 경로 알아내기
     // 1) 서블릿의 환경 정보를 다루는 객체를 먼저 얻는다.
@@ -26,7 +26,7 @@ public class Servlet04 extends GenericServlet {
 
     // 2) ServletContext를 통해 웹 자원의 실제 경로를 알아낸다.
     // => getRealPath(현재 웹 애플리케이션의 파일 경로) : 실제 전체 경로를 리턴한다.
-    String path = ctx.getRealPath("/WEB-INF/minsigi.jpeg");
+    String path = ctx.getRealPath("/photo.jpeg");
     System.out.println(path);
 
     FileInputStream in = new FileInputStream(path);
@@ -44,6 +44,9 @@ public class Servlet04 extends GenericServlet {
     }
 
     out.flush(); // 버퍼 데코레이터에 보관된 데이터를 클라이언트로 방출한다.
+    out.close();
     in.close();
   }
 }
+
+

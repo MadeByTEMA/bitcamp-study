@@ -7,18 +7,25 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+// 멀티파트 형식으로 전송된 데이터는
+// 별도의 처리과정이 필요한다.
+// 이 일을 대신 해주는 라이브러리가 있다.
+// => Apache 재단에게 제공하는 fileupload 라이브러리이다.
+// => search.maven.org 에서 'commons-fileupload' 검색한다.
+// => 라이브러리 정보를 build.gradle 에 추가한다.
+// => 'gradle eclipse'를 실행하여 라이브러리를 가져온다.
+// => 이클립스 프로젝트를 refresh 한다.
+//
 @WebServlet("/ex04/s4")
 public class Servlet04 extends GenericServlet {
 
@@ -33,7 +40,8 @@ public class Servlet04 extends GenericServlet {
   }
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // 멀티파트 형식으로 보낸 첨부 파일 데이터를 읽는 방법
     // => Content-Type 헤더에 지정한 구분자를 사용하여 각 파트를 분리한 다음
@@ -61,14 +69,16 @@ public class Servlet04 extends GenericServlet {
     // getParameter()가 null을 리턴한다는 것을 확인하기 위해
     // 파라미터 모두 String으로 받는다.
     // => 멀티파트 형식으로 전송된 데이터는 getParameter()로 꺼낼 수 없다.
-    /*
-     * String age = req.getParameter("age"); String name = req.getParameter("name");
-     * String photo = req.getParameter("photo");
-     * 
-     * res.setContentType("text/plain;charset=UTF-8"); PrintWriter out =
-     * res.getWriter(); out.printf("이름=%s\n", name); out.printf("나이=%s\n", age);
-     * out.printf("사진=%s\n", photo);
-     */
+
+    // String age = req.getParameter("age");
+    // String name = req.getParameter("name");
+    // String photo = req.getParameter("photo");
+    //
+    // res.setContentType("text/plain;charset=UTF-8");
+    // PrintWriter out = res.getWriter();
+    // out.printf("이름=%s\n", name);
+    // out.printf("나이=%s\n", age);
+    // out.printf("사진=%s\n", photo);
 
     // 멀티파트 형식의 데이터 처리하기
     // 1) Apache 라이브러리 가져온다.
@@ -144,23 +154,22 @@ public class Servlet04 extends GenericServlet {
 // 요청 프로토콜에서 Content-Type을 확인하라.
 //
 /*
- * POST /java-web/ex04/s4 HTTP/1.1 Host: 192.168.0.4:8080 Content-Length: 7222
- * Pragma: no-cache Cache-Control: no-cache Origin: http://192.168.0.4:8080
- * Upgrade-Insecure-Requests: 1 Content-Type: multipart/form-data;
- * boundary=----WebKitFormBoundaryzVY11GiqDpSP3H8f User-Agent: Mozilla/5.0
- * (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko)
+ * POST /java-web/ex04/s4 HTTP/1.1 Host: 192.168.0.4:8080 Content-Length: 7222 Pragma: no-cache
+ * Cache-Control: no-cache Origin: http://192.168.0.4:8080 Upgrade-Insecure-Requests: 1
+ * Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryzVY11GiqDpSP3H8f User-Agent:
+ * Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko)
  * Chrome/73.0.3683.86 Safari/537.36 Accept:
- * text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,
- * Referer: http://192.168.0.4:8080/java-web/ex04/test04.html Accept-Encoding:
- * gzip, deflate Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6
- * Connection: keep-alive 빈 줄 ------WebKitFormBoundaryzVY11GiqDpSP3H8f
- * Content-Disposition: form-data; name="name"
- * 
- * 홍길동 ------WebKitFormBoundaryzVY11GiqDpSP3H8f Content-Disposition: form-data;
- * name="age"
- * 
- * 20 ------WebKitFormBoundaryzVY11GiqDpSP3H8f Content-Disposition: form-data;
- * name="photo"; filename="images.jpeg" Content-Type: image/jpeg
- * 
+ * text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng, Referer:
+ * http://192.168.0.4:8080/java-web/ex04/test04.html Accept-Encoding: gzip, deflate Accept-Language:
+ * ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,la;q=0.6 Connection: keep-alive 빈 줄
+ * ------WebKitFormBoundaryzVY11GiqDpSP3H8f Content-Disposition: form-data; name="name"
+ *
+ * 홍길동 ------WebKitFormBoundaryzVY11GiqDpSP3H8f Content-Disposition: form-data; name="age"
+ *
+ * 20 ------WebKitFormBoundaryzVY11GiqDpSP3H8f Content-Disposition: form-data; name="photo";
+ * filename="images.jpeg" Content-Type: image/jpeg
+ *
  * 바이너리 데이터.... ------WebKitFormBoundaryzVY11GiqDpSP3H8f--
  */
+
+

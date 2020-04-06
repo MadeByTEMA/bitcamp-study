@@ -4,7 +4,6 @@ package com.eomcs.web.ex04;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -13,7 +12,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
@@ -30,7 +28,8 @@ public class Servlet08 extends GenericServlet {
   }
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // 테스트
     // - http://localhost:8080/java-web/ex04/test08.html 실행
@@ -73,11 +72,11 @@ public class Servlet08 extends GenericServlet {
         .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
     /*
-     * Thumbnails.of(this.uploadDir + "/" + filename) .size(80, 80)
-     * .outputFormat("jpg") .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+     * Thumbnails.of(this.uploadDir + "/" + filename) .size(80, 80) .outputFormat("jpg")
+     * .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
      * 
-     * Thumbnails.of(this.uploadDir + "/" + filename) .size(160, 160)
-     * .outputFormat("jpg") .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+     * Thumbnails.of(this.uploadDir + "/" + filename) .size(160, 160) .outputFormat("jpg")
+     * .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
      */
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/thumbnail.%s.jpg'><br>\n", filename);
@@ -86,3 +85,4 @@ public class Servlet08 extends GenericServlet {
     out.println("</body></html>");
   }
 }
+

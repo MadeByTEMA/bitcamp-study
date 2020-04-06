@@ -4,19 +4,29 @@ package com.eomcs.web.ex04;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 // 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
-// => web.xml에 설정할 수도 있고, 다음과 같이 애노테이션으로 설정할 수도 있다.
+// 1) DD 파일(web.xml)에 설정하기
+// <servlet>
+// <servlet-name>ex04.Servlet05</servlet-name>
+// <servlet-class>com.eomcs.web.ex04.Servlet05</servlet-class>
+// <multipart-config>
+// <max-file-size>10000000</max-file-size>
+// </multipart-config>
+// </servlet>
 //
-//@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-//@WebServlet("/ex04/s5")
+// 2) 애노테이션으로 설정하기
+//
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+@WebServlet("/ex04/s5")
 public class Servlet05 extends GenericServlet {
 
   private static final long serialVersionUID = 1L;
@@ -28,7 +38,8 @@ public class Servlet05 extends GenericServlet {
   }
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // 테스트
     // - http://localhost:8080/java-web/ex04/test05.html 실행
@@ -64,3 +75,4 @@ public class Servlet05 extends GenericServlet {
     out.println("</body></html>");
   }
 }
+
