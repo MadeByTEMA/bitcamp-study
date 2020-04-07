@@ -3,7 +3,6 @@ package com.eomcs.web.ex05;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,3 +34,4 @@ public class Servlet02 extends MyHttpServlet {
 
   }
 }
+

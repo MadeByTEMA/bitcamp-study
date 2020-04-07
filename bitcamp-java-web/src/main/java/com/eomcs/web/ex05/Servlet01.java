@@ -3,7 +3,6 @@ package com.eomcs.web.ex05;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -18,7 +17,8 @@ public class Servlet01 extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
 
     // 테스트
     // - http://localhost:8080/java-web/ex05/test01.html 실행
@@ -26,8 +26,8 @@ public class Servlet01 extends GenericServlet {
 
     // HTTP 프로토콜로 통신을 하는 서블릿 컨테이너는
     // service() 메서드를 호출할 때
-    // ServletRequest의 값으로 HttpServletRequest를 전달한다.
-    // ServletResponse의 값으로 HttpServletResponse를 전달한다.
+    // ServletRequest의 파라미터 값으로 HttpServletRequest를 만들어 전달한다.
+    // ServletResponse의 파라미터 값으로 HttpServletResponse를 만들어 전달한다.
     // 따라서 service() 메서드의 파라미터 값은 원래
     // HttpServletRequest와 HttpServletResponse이다.
     // 이들 객체에는 HTTP 프로토콜을 다루는 메서드가 추가되어 있다.
@@ -54,3 +54,4 @@ public class Servlet01 extends GenericServlet {
 
   }
 }
+

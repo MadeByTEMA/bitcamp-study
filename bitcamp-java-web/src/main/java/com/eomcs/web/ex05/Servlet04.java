@@ -3,7 +3,6 @@ package com.eomcs.web.ex05;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,8 @@ public class Servlet04 extends HttpServlet {
   // HTTP GET 요청에 응답하고 싶다면
   // 상속 받은 메서드 중에서 doGet()을 오버라이딩 한다.
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     // 테스트
     // - http://localhost:8080/java-web/ex05/test04.html 실행
     //
@@ -30,7 +30,8 @@ public class Servlet04 extends HttpServlet {
   // HTTP POST 요청에 응답하고 싶다면
   // 상속 받은 메서드 중에서 doPost()을 오버라이딩 한다.
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
     // 테스트
     // - http://localhost:8080/java-web/ex05/test04.html 실행
     //
@@ -39,3 +40,4 @@ public class Servlet04 extends HttpServlet {
     out.println("POST 요청입니다.");
   }
 }
+
