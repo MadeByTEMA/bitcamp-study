@@ -3,7 +3,6 @@ package com.eomcs.web.ex08;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,16 +39,16 @@ public class Servlet02 extends HttpServlet {
     out.println("<meta http-equiv='Refresh' content='3;url=s100'>");
 
     out.println("</head><body>");
-    out.println("안녕하세요! - /ex08/s1");
+    out.println("<h1>안녕하세요! - /ex08/s2</h1>");
     out.println("</body></html>");
   }
 }
 
 // HTTP 응답 프로토콜 예:
 /*
- * HTTP/1.1 200 Content-Type: text/html;charset=UTF-8 Content-Length: 119 Date:
- * Mon, 16 Sep 2019 03:36:11 GMT
- * 
- * <html><head> <meta http-equiv='Refresh' content='3;url=s100'> </head><body>
- * 안녕하세요! - /ex08/s1 </body></html>
+ * HTTP/1.1 200 Content-Type: text/html;charset=UTF-8 Content-Length: 119 Date: Mon, 16 Sep 2019
+ * 03:36:11 GMT
+ *
+ * <html><head> <meta http-equiv='Refresh' content='3;url=s100'> </head><body> 안녕하세요! - /ex08/s1
+ * </body></html>
  */
