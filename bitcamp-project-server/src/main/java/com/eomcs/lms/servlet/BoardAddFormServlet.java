@@ -1,13 +1,11 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 // @Component // Spring IoC 가 관리
 @WebServlet("/board/addForm") // 서블릿 컨테이너가 이 객체를 관리한다.
@@ -20,27 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 // => javax.servlet.Servlet 인터페이스를 구현하라!
 // => 또는 이 인터페이스를 미리 구현한 javax.servlet.GenericServlet을 상속 받아라!
 //
-public class BoardAddFormServlet extends HttpServlet {
+public class BoardAddFormServlet extends GenericServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>게시글 입력</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>게시물 입력</h1>");
-    out.println("<form action='add'>");
-    out.println("내용:<br>");
-    out.println("<textarea name='title' rows='5' cols='60'></textarea><br>");
-    out.println("<button>등록</button>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+
   }
 }
