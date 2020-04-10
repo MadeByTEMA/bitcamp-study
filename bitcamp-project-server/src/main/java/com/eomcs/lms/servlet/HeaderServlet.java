@@ -27,8 +27,14 @@ public class HeaderServlet extends HttpServlet {
     out.println(
         "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>");
     out.println("<style>");
-    out.println("div {");
+    out.println("body {");
+    out.println("  background-color: LightGray;");
+    out.println("}");
+
+    out.println("div.container {");
+    out.println("  background: white;");
     out.println("  border: 1px solid gray;");
+    out.println("  width: 600px;");
     out.println("}");
     out.println("</style>");
     out.println("</head>");
@@ -54,8 +60,11 @@ public class HeaderServlet extends HttpServlet {
     out.println("      <a class='nav-link' href='../auth/login'>로그인</a>");
     out.println("    </li>");
     out.println("  </ul>");
+    out.println("<span class='navbar-test'>");
+    out.println("홍길동");
+    out.println("</span>");
     out.println("</div>");
     out.println("</nav>");
-    out.println("<div class='container-lg'>");
+    out.println("<div class='container'>");
   }
 }
