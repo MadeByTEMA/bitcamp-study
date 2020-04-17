@@ -15,18 +15,26 @@
 - 보관소에 값을 저장한다.
 </pre>
 <%
-request.setAttribute("name1", "홍길동");
+//request.setAttribute("name1", "홍길동");
 %>
-<c:set scope="request" var="name1" value="홍길동"/>
+<c:set scope="request" var="name1" value="홍길동2"/>
 1: ${requestScope.name1}<br>
 2: ${pageScope.name1}<br>
 3: ${name1}<br> 
+<hr>
 
+<%--
+scope을 생략하면 기본이 PageContext 이다.
+ --%>
 <c:set var="name2" value="임꺽정"/>
 1: ${requestScope.name2}<br>
 2: ${pageScope.name2}<br>
 3: ${name2}<br>
+<hr>
 
+<%-- 
+  시작 태그와 끝 태그 사이(content)에 값을 넣을 수 있다.
+--%>
 <c:set var="name3">유관순</c:set>
 1: ${requestScope.name3}<br>
 2: ${pageScope.name3}<br>
