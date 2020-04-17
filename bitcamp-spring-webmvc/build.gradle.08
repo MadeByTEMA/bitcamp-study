@@ -20,6 +20,10 @@ dependencies {
     // Spring WebMVC 프레임워크 라이브러리
     implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.2.5.RELEASE'
 
+    // 파일 시스템에 있는 .jar 파일 포함하기
+    implementation fileTree(dir: 'lib',  include: '*.jar')
+
     implementation 'com.google.guava:guava:28.2-jre'
+
     testImplementation 'junit:junit:4.12'
 }
