@@ -32,7 +32,19 @@ obj["content"] = "내용입니다.";
 obj['viewCount'] = 120;
 
 // 물론 그 값으로 함수 객체의 주소를 저장할 수 있다.
-obj.plus = (a, b) => console.log("합계=", a + b);
+
+
+function f1(a,b) {
+	return a + b;
+}
+
+obj.plus1 = f1;
+
+obj.plus2 = function(a, b) {
+	retrun a + b;
+};
+
+obj.plus3 = (a, b) => {console.log("합계=", a + b)};
 
 console.log(obj.hasOwnProperty("title"));  // true
 console.log(obj.hasOwnProperty("content")); // true
@@ -47,8 +59,3 @@ obj.plus(100, 200);
 </script>
 </body>
 </html>
-
-
-
-
-
