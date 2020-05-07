@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,13 +61,16 @@ public class Controller04_8 {
         + "</body></html>";
   }
 
+  // MultipartFile로 멀티파트 데이터를 받으려면,
+  // Spring WebMVC 설정에서 MultipartResolver 객체를 등록해야 한다.
+  //
   // 테스트:
   // http://.../html/app1/c04_8.html
   @PostMapping(value = "h2", produces = "text/html;charset=UTF-8")
   @ResponseBody
   public String handler2(//
       String name, //
-      int age, //
+      @RequestParam(defaultValue = "0") int age, //
       MultipartFile photo // Spring API의 객체
   ) throws Exception {
 

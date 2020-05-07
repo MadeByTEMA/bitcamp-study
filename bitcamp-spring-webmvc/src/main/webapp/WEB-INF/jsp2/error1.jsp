@@ -7,6 +7,8 @@
 <title>jsp</title>
 </head>
 <body>
-<h1>/WEB-INF/jsp2/c06_1/post.jsp</h1>
+<h1>/WEB-INF/jsp2/error1.jsp</h1>
+<p>상태코드: ${requestScope["javax.servlet.error.status_code"]}</p>
+<p>오류메시지: ${requestScope["javax.servlet.error.message"]}</p>
 </body>
 </html>
